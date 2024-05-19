@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('additional_phone')->nullable();
+            $table->string('address')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('logo');
             $table->string('favicon');
-            $table->longText('description')->nullable();
             $table->longText('keywords')->nullable();
             $table->longText('copyright')->nullable();
             $table->string('meta_description')->nullable();

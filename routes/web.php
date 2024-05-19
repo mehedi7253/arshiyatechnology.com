@@ -24,5 +24,12 @@ Auth::routes();
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
     Route::get('/home',[AdminController::class, 'index'])->name('admin.home');
+    Route::get('site-settings', [AdminController::class, 'applicationSetting'])->name('site-settings');
+    Route::post('site-setting-update', [AdminController::class, 'updateApplicationSetting'])->name('settings-update');
+    Route::get('about-settings', [AdminController::class, 'aboutUs'])->name('about-settings');
+    Route::post('update-about',[AdminController::class, 'updateAboutUs'])->name('update-about');
+
+    Route::get('mission-vision', [AdminController::class, 'missionVision'])->name('mission-vision');
+    Route::post('update-mission-vision',[AdminController::class, 'updateMissionVision'])->name('update-mission-vision');
 
 });

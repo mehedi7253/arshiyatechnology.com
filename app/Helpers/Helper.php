@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\SiteSetting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\File;
 
@@ -58,9 +59,10 @@ if (!function_exists('deleteImage')) {
 }
 
 
-if (!function_exists('test')) {
-    function test()
+if (!function_exists('siteSetting')) {
+    function siteSetting()
     {
-        return "sdfjsdbf";
+        $site_setting = SiteSetting::first();
+        return $site_setting;
     }
 }

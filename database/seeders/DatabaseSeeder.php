@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             SiteSettingSeeder::class,
+            AboutUsSeeder::class,
+            MissionVissionSeeder::class,
         ]);
     }
 }

@@ -5,7 +5,7 @@
                 <div class="h3">Admin Page</div>
             </div>
             <div class="card-body">
-                {{ test()}}
+                
             </div>
         </div>
     @endsection
