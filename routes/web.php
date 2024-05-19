@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,4 +37,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
 
     Route::get('sfv', [AdminController::class, 'getService'])->name('get-service-FV');
     Route::post('update-service-facilities-values', [AdminController::class, 'updateSFV'])->name('update-service-facilities-values');
+
+    Route::resource('products', ProductController::class);
 });
