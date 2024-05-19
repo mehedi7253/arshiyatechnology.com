@@ -17,9 +17,25 @@
                     <li class="nk-menu-item">
                         <a href="{{route('admin.mission-vision')}}" class="nk-menu-link"><span class="nk-menu-text">Mission Vision</span></a>
                     </li>
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.get-service-FV')}}" class="nk-menu-link"><span class="nk-menu-text">Service Facilites & Values</span></a>
+                    </li>
                 </ul><!-- .nk-menu-sub -->
             </li><!-- .nk-menu-item -->
-
+            <li class="nk-menu-item has-sub">
+                <a href="#" class="nk-menu-link nk-menu-toggle">
+                    <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                    <span class="nk-menu-text">Manage Banner</span>
+                </a>
+                <ul class="nk-menu-sub">
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.banners.index')}}" class="nk-menu-link"><span class="nk-menu-text">Manage Banner</span></a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.banners.create')}}" class="nk-menu-link"><span class="nk-menu-text">Add Banner</span></a>
+                    </li>
+                </ul><!-- .nk-menu-sub -->
+            </li>
             <li class="nk-menu-item">
                 <a href="{{route('admin.site-settings')}}" class="nk-menu-link">
                     <span class="nk-menu-icon"><em class="icon ni ni-text-rich"></em></span>

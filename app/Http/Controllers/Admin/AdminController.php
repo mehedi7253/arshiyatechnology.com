@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
-use App\Models\ApplicationSetting;
 use App\Models\MissionVission;
+use App\Models\ServiceFacilitesValues;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
@@ -108,6 +108,27 @@ class AdminController extends Controller
         $mission_vision->save();
         $notification = [
            'message' => 'Mission & Vision updated successfully',
+           'alert-type' =>'success',
+        ];
+        return redirect()->back()->with($notification);
+    }
+
+    public function getService()
+    {
+        $page = "Service Facilities and Values";
+        $sfv = ServiceFacilitesValues::find(1);
+        return view('admin.application-setting.service-facilities-values', compact('sfv', 'page'));
+    }
+
+    public function updateSFV(Request $request)
+    {
+        $service_facilities = ServiceFacilitesValues::firstOrFail();
+        $service_facilities->services = $request->services;
+        $service_facilities->facilities = $request->facilities;
+        $service_facilities->values = $request->values;
+        $service_facilities->save();
+        $notification = [
+           'message' => 'updated successfully',
            'alert-type' =>'success',
         ];
         return redirect()->back()->with($notification);
