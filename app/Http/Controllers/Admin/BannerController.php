@@ -33,7 +33,7 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'banner_image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'banner_image' => 'required|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
         $banner = new Banner();
         $banner->banner_link        = $request->banner_link;
@@ -78,7 +78,7 @@ class BannerController extends Controller
     public function update(Request $request, string $id)
     {
         $this->validate($request,[
-            'banner_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'banner_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
         $banner = Banner::find($id);
         $banner->banner_link        = $request->banner_link;

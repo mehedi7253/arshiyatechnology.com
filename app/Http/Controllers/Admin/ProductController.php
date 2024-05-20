@@ -38,7 +38,7 @@ class ProductController extends Controller
             'product_name'      => 'required',
             'short_description' =>'required',
             'price'             =>'required',
-            'image'             =>'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'             =>'required|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $product = new Product();
@@ -88,7 +88,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        
+
     }
 
     /**

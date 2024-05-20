@@ -58,11 +58,10 @@ if (!function_exists('deleteImage')) {
     }
 }
 
-
 if (!function_exists('siteSetting')) {
     function siteSetting()
     {
-        $site_setting = SiteSetting::first();
-        return $site_setting;
+        $siteSetting = SiteSetting::first();
+        return $siteSetting;
     }
 }

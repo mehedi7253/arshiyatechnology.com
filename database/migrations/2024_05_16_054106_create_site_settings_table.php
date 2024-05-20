@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('favicon');
             $table->longText('keywords')->nullable();
             $table->longText('copyright')->nullable();
-            $table->string('meta_description')->nullable();
+            $table->longText('meta_description')->nullable();
             $table->timestamps();
         });
     }

@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Arshiya Technology</title>
-<meta content="" name="description">
-<meta content="" name="keywords">
+<title>{{ siteSetting()->name }}</title>
+<meta content="{{ siteSetting()->meta_description }}" name="description">
+<meta content="{{ siteSetting()->keywords }}" name="keywords">
 <!-- Favicons -->
-<link href="assets/img/logo.jpeg" rel="icon">
-<link href="assets/img/logo.jpeg" rel="apple-touch-icon">
+<link href="{{ siteSetting()->favicon }}" rel="icon">
+<link href="{{ siteSetting()->logo }}" rel="apple-touch-icon">
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 <!-- Vendor CSS Files -->
@@ -21,3 +21,4 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

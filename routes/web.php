@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Page\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+//front page routes
+Route::get('/', [PageController::class, 'index']);
+Route::post('/cart/add', [PageController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/update', [PageController::class, 'updateCart'])->name('cart.update');
+Route::get('/cart', [PageController::class, 'cart'])->name('cart.index');
 
 Auth::routes();
 
