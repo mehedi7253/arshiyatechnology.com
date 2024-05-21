@@ -50,12 +50,6 @@
                     </li>
                 </ul><!-- .nk-menu-sub -->
             </li>
-            <li class="nk-menu-item">
-                <a href="{{route('admin.site-settings')}}" class="nk-menu-link">
-                    <span class="nk-menu-icon"><em class="icon ni ni-text-rich"></em></span>
-                    <span class="nk-menu-text">Site Setting</span>
-                </a>
-            </li>
         </ul><!-- .nk-menu -->
     </div><!-- .nk-sidebar-menu -->
 </div>

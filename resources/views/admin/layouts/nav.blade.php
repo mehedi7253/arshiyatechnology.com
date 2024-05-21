@@ -4,9 +4,9 @@
             <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
         </div>
         <div class="nk-header-brand d-xl-none">
-            <a href="html/index.html" class="logo-link">
-                <img class="logo-light logo-img" src="{{ asset('backend/images/logo.png')}}" srcset="{{ asset('backend/images/logo2x.png 2x')}}" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('backend/images/logo-dark.png')}}" srcset="{{ asset('backend/images/logo-dark2x.png 2x')}}" alt="logo-dark">
+            <a href="/" class="logo-link">
+                <img class="logo-light logo-img" src="{{ siteSetting()->favicon }}" srcset="{{ siteSetting()->favicon }}" alt="logo">
+                <img class="logo-dark logo-img" src="{{ siteSetting()->favicon }}" srcset="{{ siteSetting()->favicon }}" alt="logo-dark">
             </a>
         </div><!-- .nk-header-brand -->
 
@@ -47,17 +47,6 @@
                                     </form>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                </li><!-- .dropdown -->
-                <li class="dropdown notification-dropdown mr-n1">
-                    <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
-                        <div class="icon-status icon-status-info"><em class="icon ni ni-bell"></em></div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right dropdown-menu-s1">
-                        <div class="dropdown-head">
-                            <span class="sub-title nk-dropdown-title">Notifications</span>
-                            <a href="#">Mark All as Read</a>
                         </div>
                     </div>
                 </li><!-- .dropdown -->
