@@ -20,8 +20,9 @@ use Illuminate\Support\Facades\Route;
 //front page routes
 Route::get('/', [PageController::class, 'index']);
 Route::post('/cart/add', [PageController::class, 'addToCart'])->name('cart.add');
-Route::post('/cart/update', [PageController::class, 'updateCart'])->name('cart.update');
-Route::get('/cart', [PageController::class, 'cart'])->name('cart.index');
+Route::post('/cart/increment', [PageController::class, 'incrementCartItem'])->name('cart.increment');
+Route::post('/cart/decrement', [PageController::class, 'decrementCartItem'])->name('cart.decrement');
+Route::get('/cart', [PageController::class, 'getCart'])->name('cart.get');
 
 Auth::routes();
 

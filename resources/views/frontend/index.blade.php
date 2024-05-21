@@ -133,17 +133,20 @@
                                         @endif
                                     </div>
                                     <div class="mt-2 text-center">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-secondary quantity-decrease" data-id="{{ $product->id }}" type="button">-</button>
-                                            </div>
-                                            <input type="number" id="quantity_{{ $product->id }}" class="form-control text-center" value="1" min="1">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary quantity-increase" data-id="{{ $product->id }}" type="button">+</button>
-                                            </div>
-                                        </div>
                                         <button class="btn btn-primary add-to-cart" data-id="{{ $product->id }}">Add to Cart</button>
-                                        {{-- <button class="btn btn-info btn-sm mt-2">Add To Cart</button> --}}
+                                        <div class="quantity-controls d-none">
+                                            <button class="btn btn-secondary decrement" data-id="{{ $product->id }}">-</button>
+                                            <span class="quantity">1</span>
+                                            <button class="btn btn-secondary increment" data-id="{{ $product->id }}">+</button>
+                                        </div>
+
+                                        {{-- <button class="btn btn-primary add-to-cart" data-product-id="{{ $product->id }}">Add to Cart</button>
+
+                                        <div class="quantity-controls d-none">
+                                            <button class="btn btn-secondary increment-cart-item" data-product-id="{{ $product->id }}">+</button>
+                                            <div id="cart-items"></div>
+                                            <button class="btn btn-secondary decrement-cart-item" data-product-id="{{ $product->id }}">-</button>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -280,12 +283,11 @@
       <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
       <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
       <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-      <script src="assets/vendor/php-email-form/validate.js"></script>
       <!-- Template Main JS File -->
       <script src="assets/js/main.js"></script>
       <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
       <script>
-         var swiper = new Swiper(".mySwiper", {
+        var swiper = new Swiper(".mySwiper", {
            slidesPerView: 4,
            spaceBetween: 10,
            enterslides: true,
@@ -309,45 +311,85 @@
              el: ".swiper-pagination",
              clickable: true,
            },
-         });
-
+        });
       </script>
-      <script>
-        $(document).ready(function() {
-            $(".quantity-increase").click(function() {
-                var id = $(this).data("id");
-                var quantity = parseInt($("#quantity_" + id).val());
-                $("#quantity_" + id).val(quantity + 1);
-            });
-
-            $(".quantity-decrease").click(function() {
-                var id = $(this).data("id");
-                var quantity = parseInt($("#quantity_" + id).val());
-                if (quantity > 1) {
-                    $("#quantity_" + id).val(quantity - 1);
-                }
-            });
-
-            $(".add-to-cart").click(function(e) {
+    <script>
+       $(document).ready(function() {
+            $('.add-to-cart').click(function(e) {
                 e.preventDefault();
-
-                var id = $(this).data("id");
-                var quantity = $("#quantity_" + id).val();
+                let productId = $(this).data('product-id');
+                let quantity = 1; // You can make this dynamic based on user input
 
                 $.ajax({
-                    url: "{{ route('cart.add') }}",
-                    method: "POST",
+                    url: '{{ route('cart.add') }}',
+                    method: 'POST',
                     data: {
-                        _token: "{{ csrf_token() }}",
-                        product_id: id,
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId,
                         quantity: quantity
                     },
                     success: function(response) {
-                        alert(response.success);
+                        if (response.success) {
+                            button.next('.quantity-controls').removeClass('d-none');
+                            button.addClass('d-none');
+                        }
                     }
                 });
             });
+
+            $('.increment-cart-item').click(function(e) {
+                e.preventDefault();
+                let productId = $(this).data('product-id');
+                var button = $(this);
+                var quantityElement = button.siblings('.quantity');
+
+                $.ajax({
+                    url: '{{ route('cart.increment') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            quantityElement.text(parseInt(quantityElement.text()) + 1);
+                        }
+                    }
+                });
+            });
+
+            $('.decrement-cart-item').click(function(e) {
+                e.preventDefault();
+                let productId = $(this).data('product-id');
+                var button = $(this);
+                var quantityElement = button.siblings('.quantity');
+                $.ajax({
+                    url: '{{ route('cart.decrement') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId
+                    },
+                    success: function(response) {
+                        if (response.success && parseInt(quantityElement.text()) > 1) {
+                            quantityElement.text(parseInt(quantityElement.text()) - 1);
+                        }
+                    }
+                });
+            });
+
+            function loadCart() {
+                $.ajax({
+                    url: '{{ route('cart.get') }}',
+                    method: 'GET',
+                    success: function(response) {
+                        // Render cart items
+                    }
+                });
+            }
+
+            loadCart();
         });
-        </script>
+    </script>
    </body>
 </html>

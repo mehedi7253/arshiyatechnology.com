@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Page;
 use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
 use App\Models\Banner;
+use App\Models\Cart;
 use App\Models\MissionVission;
 use App\Models\Product;
 use App\Models\ServiceFacilitesValues;
@@ -25,40 +26,63 @@ class PageController extends Controller
     public function addToCart(Request $request)
     {
         $productId = $request->input('product_id');
-        $quantity = $request->input('quantity');
+        $quantity = $request->input('quantity', 1);
 
         $cart = session()->get('cart', []);
 
-        if(isset($cart[$productId])) {
+        if (isset($cart[$productId])) {
             $cart[$productId]['quantity'] += $quantity;
         } else {
-            $product = Product::find($productId);
             $cart[$productId] = [
-                "name" => $product->product_name,
+                "id" => $productId,
                 "quantity" => $quantity,
-                "price" => $product->price,
-                "image" => $product->image
+                // Add other product details if needed
             ];
         }
 
         session()->put('cart', $cart);
-        return response()->json(['success' => 'Product added to cart successfully!']);
+        return response()->json(['success' => true, 'cart' => $cart]);
     }
 
-    public function updateCart(Request $request)
+
+    public function incrementCartItem(Request $request)
     {
-        if($request->id && $request->quantity){
-            $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
+        $productId = $request->input('product_id');
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$productId])) {
+            $cart[$productId]['quantity']++;
             session()->put('cart', $cart);
-            return response()->json(['success' => 'Cart updated successfully']);
         }
+
+        return response()->json(['success' => true, 'cart' => $cart]);
     }
 
-    public function cart()
+    public function decrementCartItem(Request $request)
     {
-        $cart = session()->get('cart');
-        return $cart;
-        return view('frontend.cart.index', compact('cart'));
+        $productId = $request->input('product_id');
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$productId]) && $cart[$productId]['quantity'] > 1) {
+            $cart[$productId]['quantity']--;
+            session()->put('cart', $cart);
+        } elseif (isset($cart[$productId])) {
+            unset($cart[$productId]);
+            session()->put('cart', $cart);
+        }
+
+        return response()->json(['success' => true, 'cart' => $cart]);
+    }
+
+    // public function cart()
+    // {
+    //     $cart = session()->get('cart');
+    //     return $cart;
+    //     return view('frontend.cart.index', compact('cart'));
+    // }
+    public function getCart()
+    {
+        $cart = session()->get('cart', []);
+        return response()->json(['cart' => $cart]);
     }
 }
