@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Page\OrderController;
 use App\Http\Controllers\Page\PageController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
+
+
+
 //front page routes
 Route::get('/', [PageController::class, 'index']);
-Route::post('/cart/add', [PageController::class, 'addToCart'])->name('cart.add');
-Route::post('/cart/increment', [PageController::class, 'incrementCartItem'])->name('cart.increment');
-Route::post('/cart/decrement', [PageController::class, 'decrementCartItem'])->name('cart.decrement');
-Route::get('/cart', [PageController::class, 'getCart'])->name('cart.get');
-
-Auth::routes();
+Route::post('/cart', [PageController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/increase', [PageController::class, 'increaseQuantity'])->name('cart.increase');
+Route::post('/cart/decrease', [PageController::class, 'decreaseQuantity'])->name('cart.decrease');
+Route::get('/cart-item',[PageController::class, 'cartItem'])->name('cart.item');
+Route::delete('/remove-item/{productId}', [PageController::class, 'removeItem'])->name('cart.remove');
+Route::get('/product-details/{slug}', [PageController::class, 'productDetails'])->name('product.details');
+Route::resource('/orders', OrderController::class);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -8,6 +8,7 @@ use App\Models\Banner;
 use App\Models\Cart;
 use App\Models\MissionVission;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ServiceFacilitesValues;
 use Illuminate\Http\Request;
 
@@ -23,31 +24,40 @@ class PageController extends Controller
         return view('frontend.index', compact('banners','mission_vision', 'about_us','products','sfv'));
     }
 
+    public function productDetails($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        $product_image = ProductImage::where('product_id', $product->id)->get();
+        $all_product = Product::take('10')->get();
+        return view('frontend.pages.product-details', compact('product','product_image','all_product'));
+    }
+
     public function addToCart(Request $request)
     {
-        $productId = $request->input('product_id');
-        $quantity = $request->input('quantity', 1);
-
+        $productId = $request->product_id;
+        $quantity = $request->quantity;
         $cart = session()->get('cart', []);
 
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity'] += $quantity;
-        } else {
-            $cart[$productId] = [
-                "id" => $productId,
-                "quantity" => $quantity,
-                // Add other product details if needed
-            ];
-        }
+        $product = Product::find($productId);
+        $cart[$productId] = [
+            "productId" => $product->id,
+            "name" => $product->product_name,
+            "quantity" => $quantity,
+            "price" => $product->discount_price ?? $product->price,
+            "image" => $product->image,
+            "url" => $product->slug,
+        ];
+
 
         session()->put('cart', $cart);
-        return response()->json(['success' => true, 'cart' => $cart]);
+
+        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity']]);
     }
 
 
-    public function incrementCartItem(Request $request)
+    public function increaseQuantity(Request $request)
     {
-        $productId = $request->input('product_id');
+        $productId = $request->product_id;
         $cart = session()->get('cart', []);
 
         if (isset($cart[$productId])) {
@@ -55,23 +65,20 @@ class PageController extends Controller
             session()->put('cart', $cart);
         }
 
-        return response()->json(['success' => true, 'cart' => $cart]);
+        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity']]);
     }
 
-    public function decrementCartItem(Request $request)
+    public function decreaseQuantity(Request $request)
     {
-        $productId = $request->input('product_id');
+        $productId = $request->product_id;
         $cart = session()->get('cart', []);
 
         if (isset($cart[$productId]) && $cart[$productId]['quantity'] > 1) {
             $cart[$productId]['quantity']--;
             session()->put('cart', $cart);
-        } elseif (isset($cart[$productId])) {
-            unset($cart[$productId]);
-            session()->put('cart', $cart);
         }
 
-        return response()->json(['success' => true, 'cart' => $cart]);
+        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity']]);
     }
 
     // public function cart()
@@ -80,9 +87,26 @@ class PageController extends Controller
     //     return $cart;
     //     return view('frontend.cart.index', compact('cart'));
     // }
-    public function getCart()
+    public function cartItem()
     {
         $cart = session()->get('cart', []);
-        return response()->json(['cart' => $cart]);
+        // return $cart;
+        return view('frontend.pages.cart', compact('cart'));
+    }
+
+    public function removeItem($productId)
+    {
+        $cart = session()->get('cart', []);
+        if (isset($cart[$productId])) {
+            unset($cart[$productId]);
+            session()->put('cart', $cart);
+        }
+
+        $notification = [
+            'message' => 'Item Remove successfully',
+            'alert-type' =>'success',
+         ];
+         return redirect()->back()->with($notification);
+
     }
 }

@@ -28,11 +28,12 @@
                 </div>
                 <nav id="navbar" class="navbar">
                     <ul>
-                        <li><a class="active" href="#">Home</a></li>
+                        <li><a class="active" href="">Home</a></li>
                         <li><a href="#about">About Us</a></li>
-                        <li><a href="#products">Products</a></li>
+                        <li><a href="#products">Shop Now</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#client">Clients</a></li>
+                        <li><a href="{{route('cart.item')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px">{{ cartData() }}</sup></a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav>
@@ -50,7 +51,7 @@
             <div class="carousel-inner">
               @foreach($banners as $key => $slider)
                   <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                    <img src="{{ $slider->banner_image }}" class="d-block w-100" alt="" height="300px">
+                    <img src="{{ $slider->banner_image }}" class="d-block w-100" alt="" height="auto">
                   </div>
               @endforeach
             </div>
@@ -118,11 +119,11 @@
                     @foreach ($products as $product)
                         <div class="swiper-slide">
                             <div class="card" style="border: 1px solid #70ced9;">
-                                <a href="{{ $product->slug }}">
-                                    <img src="{{ $product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0" style="height: 200px">
+                                <a href="{{ route('product.details', $product->slug) }}">
+                                    <img src="{{ $product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0 p-2" style="height: 200px">
                                 </a>
                                 <div class="card-body">
-                                    <a href="{{ $product->slug }}">{{ $product->product_name }}</a>
+                                    <a href="{{ route('product.details', $product->slug) }}">{{ $product->product_name }}</a>
                                     <br/>
                                     <div class="mt-2" style="text-align: center">
                                         @if ($product->discount_price == true)
@@ -133,20 +134,7 @@
                                         @endif
                                     </div>
                                     <div class="mt-2 text-center">
-                                        <button class="btn btn-primary add-to-cart" data-id="{{ $product->id }}">Add to Cart</button>
-                                        <div class="quantity-controls d-none">
-                                            <button class="btn btn-secondary decrement" data-id="{{ $product->id }}">-</button>
-                                            <span class="quantity">1</span>
-                                            <button class="btn btn-secondary increment" data-id="{{ $product->id }}">+</button>
-                                        </div>
-
-                                        {{-- <button class="btn btn-primary add-to-cart" data-product-id="{{ $product->id }}">Add to Cart</button>
-
-                                        <div class="quantity-controls d-none">
-                                            <button class="btn btn-secondary increment-cart-item" data-product-id="{{ $product->id }}">+</button>
-                                            <div id="cart-items"></div>
-                                            <button class="btn btn-secondary decrement-cart-item" data-product-id="{{ $product->id }}">-</button>
-                                        </div> --}}
+                                        <a href="{{ route('product.details', $product->slug) }}" class="btn btn-sm btn-outline-info">View Details</a>
                                     </div>
                                 </div>
                             </div>
@@ -303,92 +291,73 @@
                spaceBetween: 15
                },
                320: {
-               slidesPerView: 2,
-               spaceBetween: 10
+                slidesPerView: 2,
+                spaceBetween: 10
                }
              },
-           pagination: {
-             el: ".swiper-pagination",
-             clickable: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
            },
         });
       </script>
+
+
     <script>
-       $(document).ready(function() {
-            $('.add-to-cart').click(function(e) {
-                e.preventDefault();
-                let productId = $(this).data('product-id');
-                let quantity = 1; // You can make this dynamic based on user input
-
-                $.ajax({
-                    url: '{{ route('cart.add') }}',
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        product_id: productId,
-                        quantity: quantity
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            button.next('.quantity-controls').removeClass('d-none');
-                            button.addClass('d-none');
-                        }
-                    }
-                });
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
 
-            $('.increment-cart-item').click(function(e) {
-                e.preventDefault();
-                let productId = $(this).data('product-id');
+            $('.add-to-cart').click(function() {
+                var productId = $(this).data('id');
                 var button = $(this);
-                var quantityElement = button.siblings('.quantity');
 
                 $.ajax({
-                    url: '{{ route('cart.increment') }}',
+                    url: '{{ route("cart.add") }}',
                     method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        product_id: productId
-                    },
+                    data: { product_id: productId },
                     success: function(response) {
-                        if (response.success) {
-                            quantityElement.text(parseInt(quantityElement.text()) + 1);
+                        if(response.success) {
+                            button.next('.quantity-plus').show();
+                            button.next().next('.minutes-icon').show();
+
                         }
                     }
                 });
             });
 
-            $('.decrement-cart-item').click(function(e) {
-                e.preventDefault();
-                let productId = $(this).data('product-id');
-                var button = $(this);
-                var quantityElement = button.siblings('.quantity');
+            $('.quantity-plus').click(function() {
+                var productId = $(this).data('id');
+
                 $.ajax({
-                    url: '{{ route('cart.decrement') }}',
+                    url: '{{ route("cart.increase") }}',
                     method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        product_id: productId
-                    },
+                    data: { product_id: productId },
                     success: function(response) {
-                        if (response.success && parseInt(quantityElement.text()) > 1) {
-                            quantityElement.text(parseInt(quantityElement.text()) - 1);
+                        if(response.success) {
+                            // You can update the quantity display here if needed
                         }
                     }
                 });
             });
 
-            function loadCart() {
+            $('.minutes-icon').click(function() {
+                var productId = $(this).data('id');
+
                 $.ajax({
-                    url: '{{ route('cart.get') }}',
-                    method: 'GET',
+                    url: '{{ route("cart.decrease") }}',
+                    method: 'POST',
+                    data: { product_id: productId },
                     success: function(response) {
-                        // Render cart items
+                        if(response.success) {
+                            // You can update the quantity display here if needed
+                        }
                     }
                 });
-            }
-
-            loadCart();
+            });
         });
     </script>
    </body>

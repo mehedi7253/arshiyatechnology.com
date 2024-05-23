@@ -65,3 +65,34 @@ if (!function_exists('siteSetting')) {
         return $siteSetting;
     }
 }
+
+//item quantity
+if (!function_exists('cartData')) {
+    function cartData()
+    {
+        $cartData = session()->get('cart');
+        //get how many cart items in the cart
+        $cartCount = 0;
+        if ($cartData) {
+            foreach ($cartData as $key => $value) {
+                $cartCount += $value['quantity'];
+            }
+        }
+        return $cartCount;
+    }
+}
+
+//total price
+if (!function_exists('totalPrice')) {
+    function totalPrice()
+    {
+        $cartData = session()->get('cart');
+        $totalPrice = 0;
+        if ($cartData) {
+            foreach ($cartData as $key => $value) {
+                $totalPrice += $value['price'] * $value['quantity'];
+            }
+        }
+        return $totalPrice;
+    }
+}
