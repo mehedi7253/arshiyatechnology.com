@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Page;
 
 use App\Http\Controllers\Controller;
 use App\Mail\OrderMail;
+use App\Mail\TestMail;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -71,9 +73,12 @@ class OrderController extends Controller
             'product' => $order_details,
         ];
 
-        $senderEmail = "arshiyatechnology@gmail.com";
-        $email = $request->email;
-        Mail::to($email)->send(new OrderMail($orderDetails, $senderEmail));
+        $user = Auth::user();
+        Mail::to('mdmehedihasan221@gmail.com')->send(new TestMail($user));
+
+        // $senderEmail = "arshiyatechnology@gmail.com";
+        // $email = $request->email;
+        // Mail::to($email)->send(new OrderMail($orderDetails, $senderEmail));
 
         return redirect()->back()->with('message','Your order has been placed successfully');
 

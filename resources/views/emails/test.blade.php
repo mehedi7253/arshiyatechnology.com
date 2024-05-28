@@ -54,7 +54,7 @@
                                                 align="center" valign="top" class="mainTitle">
                                                 <h2 class="text"
                                                     style="color:#000;font-family:Poppins,Helvetica,Arial,sans-serif;font-size:28px;font-weight:500;font-style:normal;letter-spacing:normal;line-height:36px;text-transform:none;text-align:center;padding:0;margin:0">
-                                                    Hi "{{ Auth::user()->name }}"</h2>
+                                                    Hi "test user"</h2>
                                             </td>
                                         </tr>
                                         <tr>

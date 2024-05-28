@@ -32,7 +32,9 @@ Route::post('/cart/decrease', [PageController::class, 'decreaseQuantity'])->name
 Route::get('/cart-item',[PageController::class, 'cartItem'])->name('cart.item');
 Route::delete('/remove-item/{productId}', [PageController::class, 'removeItem'])->name('cart.remove');
 Route::get('/product-details/{slug}', [PageController::class, 'productDetails'])->name('product.details');
-Route::resource('/orders', OrderController::class);
+// Route::resource('/orders', OrderController::class);
+Route::get('orders',[OrderController::class, 'index'])->name('orders.index');
+Route::post('orders/store', [OrderController::class,'store'])->middleware('mail-service')->name('orders.store');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
