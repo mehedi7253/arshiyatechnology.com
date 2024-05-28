@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             SiteSettingSeeder::class,
             AboutUsSeeder::class,
             MissionVissionSeeder::class,
+            EmailSeeder::class,
         ]);
     }
 }

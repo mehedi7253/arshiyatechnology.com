@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TestMail;
 use App\Models\AboutUs;
+use App\Models\EmailSetting;
 use App\Models\MissionVission;
 use App\Models\ServiceFacilitesValues;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -131,6 +134,48 @@ class AdminController extends Controller
            'message' => 'updated successfully',
            'alert-type' =>'success',
         ];
+        return redirect()->back()->with($notification);
+    }
+
+    public function emailSettingIndex()
+    {
+        $emailConfig = EmailSetting::first();
+        return view('admin.application-setting.email-setting', compact('emailConfig'));
+    }
+
+    public function emailSettingUpdate(Request $request)
+    {
+        $emailConfig = EmailSetting::first();
+        $emailConfig->mail_driver = $request->mail_driver;
+        $emailConfig->mail_host = $request->mail_host;
+        $emailConfig->mail_port = $request->mail_port;
+        $emailConfig->mail_username = $request->mail_username;
+        $emailConfig->mail_password = $request->mail_password;
+        $emailConfig->mail_encryption = $request->mail_encryption;
+        $emailConfig->mail_from_address = $request->mail_from_address;
+        $emailConfig->mail_from_name = $request->mail_from_name;
+        $emailConfig->mail_mailer = $request->mail_mailer;
+        $emailConfig->update();
+
+
+        $notification = [
+            'message' => 'Email Setting Updated Successfully',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function testMail()
+    {
+        $user = auth()->user();
+        Mail::to('mdmehedihasan221@gmail.com')->send(new TestMail($user));
+        
+        $notification = [
+            'message' => 'Test Mail Sent Successfully',
+            'alert-type' => 'success',
+        ];
+
         return redirect()->back()->with($notification);
     }
 }

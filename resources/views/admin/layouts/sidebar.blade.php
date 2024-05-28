@@ -20,6 +20,9 @@
                     <li class="nk-menu-item">
                         <a href="{{route('admin.get-service-FV')}}" class="nk-menu-link"><span class="nk-menu-text">Service Facilites & Values</span></a>
                     </li>
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.email-setting.index')}}" class="nk-menu-link"><span class="nk-menu-text">Email Setting</span></a>
+                    </li>
                 </ul><!-- .nk-menu-sub -->
             </li><!-- .nk-menu-item -->
             <li class="nk-menu-item has-sub">

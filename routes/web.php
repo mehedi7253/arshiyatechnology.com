@@ -51,4 +51,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
     Route::post('update-service-facilities-values', [AdminController::class, 'updateSFV'])->name('update-service-facilities-values');
 
     Route::resource('products', ProductController::class);
+
+    //EMAIL SETTING ROUTE LIST ==========>
+    Route::get('email-setting', [AdminController::class, 'emailSettingIndex'])->name('email-setting.index');
+    Route::post('email-setting/update', [AdminController::class, 'emailSettingUpdate'])->name('email-setting.update');
+    Route::get('email-setting/test-mail', [AdminController::class, 'testMail'])->middleware('mail-service')->name('email-setting.test-mail');
 });
