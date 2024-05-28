@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="form-group col-md-12 pt-3">
                                         <label for="name">Order Note </label>
-                                        <textarea name="address" class="form-control @error ('order_note') is-invalid @enderror">{{ old('order_note') }}</textarea>
+                                        <textarea name="order_note" class="form-control @error ('order_note') is-invalid @enderror">{{ old('order_note') }}</textarea>
                                         @error('order_note')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
