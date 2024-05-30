@@ -104,8 +104,9 @@
                             <button class="btn btn-sm btn-info" id="minus">-</button>
                             <input type="text" class="quantity col-1 text-center" id="quantity" disabled value="1" min="1">
                             <button class="btn btn-sm  btn-info" id="plus">+</button>
+                            <button class="btn btn-outline-info add-to-cart mr-2" data-id="{{$product->id}}">Add to cart</button>
+
                         </div>
-                        <button class="btn btn-outline-info add-to-cart" data-id="{{$product->id}}">Add to cart</button>
                     </div>
 
                 </div>
@@ -220,7 +221,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script>
-         @if (Session::has('message'))
+        @if (Session::has('message'))
             toastr.options = {
                 "closeButton": true,
                 "progressBar": true

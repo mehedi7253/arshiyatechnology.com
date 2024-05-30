@@ -4,7 +4,7 @@
             <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
         </div>
         <div class="nk-header-brand d-xl-none">
-            <a href="/" class="logo-link">
+            <a href="{{ route('admin.admin.home')}}" class="logo-link">
                 <img class="logo-light logo-img" src="{{ siteSetting()->favicon }}" srcset="{{ siteSetting()->favicon }}" alt="logo">
                 <img class="logo-dark logo-img" src="{{ siteSetting()->favicon }}" srcset="{{ siteSetting()->favicon }}" alt="logo-dark">
             </a>

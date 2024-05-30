@@ -75,7 +75,8 @@ if (!function_exists('cartData')) {
         $cartCount = 0;
         if ($cartData) {
             foreach ($cartData as $key => $value) {
-                $cartCount += $value['quantity'];
+                // $cartCount += $value['quantity'];
+                $cartCount = count($cartData);
             }
         }
         return $cartCount;

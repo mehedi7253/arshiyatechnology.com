@@ -88,9 +88,21 @@
                                         <td>
                                             <img src="{{ $item['image'] }}" style="height: 50px; width: 50px" class="img-thumbnail">
                                         </td>
-                                        <td>{{ $item['name'] }}</td>
-                                        <td>{{ $item['quantity'] }}</td>
-                                        <td>{{ number_format($item['quantity'] * $item['price'],2) }}</td>
+                                        <td>
+                                            <a href="{{ route('product.details', $item['url']) }}" class="text-decoration-none text-dark">{{ $item['name'] }}</a>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <button class="decrease btn btn-sm btn-info" data-id="{{ $item['productId'] }}">-</button>
+                                                <span class="quantity col-3 text-center border" data-id="{{ $item['productId'] }}">{{ $item['quantity'] }}</span>
+                                                <button class="increase btn btn-sm btn-info" data-id="{{ $item['productId'] }}">+</button>
+                                                {{-- <input class="sub_total" data-id="{{ $item['productId'] }}"  value="{{ number_format($item['quantity'] * $item['price'],2) }}"> --}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span id="price">{{ number_format($item['quantity'] * $item['price'],2) }}</span>
+                                            {{-- {{ number_format($item['quantity'] * $item['price'],2) }} --}}
+                                        </td>
                                         <td>
                                             <form action="{{ route('cart.remove', $item['productId'])}}" method="POST" >
                                                 @csrf
@@ -192,73 +204,6 @@
             toastr.success("{{ session('message') }}");
         @endif
 
-        var swiper = new Swiper(".mySwiper", {
-            speed: 200,
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false
-            },
-           slidesPerView: 1,
-           spaceBetween: 10,
-           enterslides: true,
-           grabcursor: true,
-           pagination: {
-             el: ".swiper-pagination",
-             clickable: true,
-           },
-        });
-        new Swiper('.all_product_swiper', {
-            speed: 400,
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                type: 'bullets',
-                clickable: true
-            },
-            breakpoints: {
-                320: {
-                    slidesPerView: 5,
-                    spaceBetween: 10
-                },
-                480: {
-                    slidesPerView: 2,
-                    spaceBetween: 10
-                },
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 10
-                },
-                992: {
-                    slidesPerView: 5,
-                    spaceBetween: 10
-                }
-            }
-        });
-
-        const minusButton = document.getElementById('minus');
-        const plusButton = document.getElementById('plus');
-        const inputField = document.getElementById('quantity');
-
-        minusButton.addEventListener('click', event => {
-        event.preventDefault();
-        const currentValue = Number(inputField.value) || 0;
-            if (currentValue <= 1) {
-                return;
-            }else{
-                inputField.value = currentValue - 1;
-            }
-        });
-
-        plusButton.addEventListener('click', event => {
-        event.preventDefault();
-        const currentValue = Number(inputField.value) || 0;
-            inputField.value = currentValue + 1;
-        });
 
         $(document).ready(function() {
             $.ajaxSetup({
@@ -266,26 +211,65 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $('.increase').click(function() {
+                var id = $(this).data('id');
+                var quantity = parseInt($(`.quantity[data-id="${id}"]`).text());
+                quantity++;
+                updateQuantity(id, quantity);
+            });
 
-            $('.add-to-cart').click(function() {
-                var productId = $(this).data('id');
-                var quantity = inputField.value;
-                var button = $(this);
+            $('.decrease').click(function() {
+                var id = $(this).data('id');
+                var quantity = parseInt($(`.quantity[data-id="${id}"]`).text());
+                if (quantity > 0) {
+                    quantity--;
+                    decreaseQuantity(id, quantity);
+                }
+            });
+
+            function updateQuantity(id, quantity) {
                 $.ajax({
-                    url: '/cart',
-                    method: 'POST',
-                    data: { product_id: productId, quantity: quantity },
+                    url: '/cart/increase',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: id,
+                        quantity: quantity,
+                    },
                     success: function(response) {
                         if (response.success) {
-                            toastr.success("product added successfully");
-                            //reload after 2 seconds
+                            $(`.quantity[data-id="${id}"]`).text(response.quantity);
+                            // $('#price').text(response.price);
+                            //reload 1 second later
                             setTimeout(function() {
                                 location.reload();
-                            }, 2000);
+                            }, 1000);
                         }
                     }
                 });
-            });
+            }
+
+            function decreaseQuantity(id, quantity) {
+                $.ajax({
+                    url: '/cart/decrease',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: id,
+                        quantity: quantity,
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $(`.quantity[data-id="${id}"]`).text(response.quantity);
+                            // $('#price').text(response.price);
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }
+                    }
+                });
+            }
+
         });
     </script>
 </body>

@@ -12,7 +12,7 @@
                         <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
                     </div>
                     <div class="nk-sidebar-brand">
-                        <a href="" class="logo-link nk-sidebar-logo">
+                        <a href="{{ route('admin.admin.home')}}" class="logo-link nk-sidebar-logo">
                             <img class="logo-light logo-img" src="{{ siteSetting()->favicon }}" srcset="{{ siteSetting()->favicon }}" alt="logo">
                             <img class="logo-dark logo-img" src="{{ siteSetting()->favicon }}" srcset="{{ siteSetting()->favicon }}" alt="logo-dark">
                         </a>

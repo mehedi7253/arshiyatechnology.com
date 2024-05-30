@@ -7,6 +7,7 @@ use App\Mail\TestMail;
 use App\Models\AboutUs;
 use App\Models\EmailSetting;
 use App\Models\MissionVission;
+use App\Models\Order;
 use App\Models\ServiceFacilitesValues;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
@@ -170,12 +171,26 @@ class AdminController extends Controller
     {
         $user = auth()->user();
         Mail::to('mdmehedihasan221@gmail.com')->send(new TestMail($user));
-        
+
         $notification = [
             'message' => 'Test Mail Sent Successfully',
             'alert-type' => 'success',
         ];
 
         return redirect()->back()->with($notification);
+    }
+
+    public function allOrder()
+    {
+        $page = "Order's";
+        $orders = Order::all();
+        return view('admin.order.index', compact('page', 'orders'));
+    }
+
+    public function orderDetails($id)
+    {
+        $page = "Order Details";
+        $order = Order::with('orderDetails')->where('id', $id)->first();
+        return view('admin.order.show', compact('page', 'order'));
     }
 }

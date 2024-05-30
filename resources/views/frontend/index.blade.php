@@ -134,7 +134,8 @@
                                         @endif
                                     </div>
                                     <div class="mt-2 text-center">
-                                        <a href="{{ route('product.details', $product->slug) }}" class="btn btn-sm btn-outline-info">View Details</a>
+                                        <button class="btn btn-primary add-to-cart" data-id="{{ $product->id }}">Add to Cart</button>
+                                        {{-- <a href="{{ route('product.details', $product->slug) }}" class="btn btn-sm btn-outline-info">View Details</a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -274,6 +275,8 @@
       <!-- Template Main JS File -->
       <script src="assets/js/main.js"></script>
       <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
       <script>
         var swiper = new Swiper(".mySwiper", {
            slidesPerView: 4,
@@ -300,10 +303,15 @@
                 clickable: true,
            },
         });
-      </script>
 
+        @if (Session::has('message'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("{{ session('message') }}");
+        @endif
 
-    <script>
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -313,52 +321,24 @@
 
             $('.add-to-cart').click(function() {
                 var productId = $(this).data('id');
+                var quantity = 1;
                 var button = $(this);
-
                 $.ajax({
-                    url: '{{ route("cart.add") }}',
+                    url: '/cart',
                     method: 'POST',
-                    data: { product_id: productId },
+                    data: { product_id: productId, quantity: quantity },
                     success: function(response) {
-                        if(response.success) {
-                            button.next('.quantity-plus').show();
-                            button.next().next('.minutes-icon').show();
-
-                        }
-                    }
-                });
-            });
-
-            $('.quantity-plus').click(function() {
-                var productId = $(this).data('id');
-
-                $.ajax({
-                    url: '{{ route("cart.increase") }}',
-                    method: 'POST',
-                    data: { product_id: productId },
-                    success: function(response) {
-                        if(response.success) {
-                            // You can update the quantity display here if needed
-                        }
-                    }
-                });
-            });
-
-            $('.minutes-icon').click(function() {
-                var productId = $(this).data('id');
-
-                $.ajax({
-                    url: '{{ route("cart.decrease") }}',
-                    method: 'POST',
-                    data: { product_id: productId },
-                    success: function(response) {
-                        if(response.success) {
-                            // You can update the quantity display here if needed
+                        if (response.success) {
+                            toastr.success("product added successfully");
+                            //reload after 2 seconds
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
                         }
                     }
                 });
             });
         });
-    </script>
+      </script>
    </body>
 </html>

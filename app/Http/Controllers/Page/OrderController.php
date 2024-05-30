@@ -61,9 +61,9 @@ class OrderController extends Controller
                 $order_details->order_id = $order->id;
                 $order_details->product_name = $item['name'];
                 $order_details->quantity = $item['quantity'];
-                $order_details->price = $item['price'];
+                $order_details->price = $item['price'] * $item['quantity'];
                 $order_details->save();
-                // session()->forget('cart');
+                session()->forget('cart');
             }
         }
 
@@ -80,7 +80,7 @@ class OrderController extends Controller
         // $email = $request->email;
         // Mail::to($email)->send(new OrderMail($orderDetails, $senderEmail));
 
-        return redirect()->back()->with('message','Your order has been placed successfully');
+        return redirect()->route('cart.item')->with('message', 'Your order has been placed successfully');
 
     }
 

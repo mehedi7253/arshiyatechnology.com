@@ -48,45 +48,37 @@ class PageController extends Controller
             "url" => $product->slug,
         ];
 
-
         session()->put('cart', $cart);
-
         return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity']]);
     }
 
-
     public function increaseQuantity(Request $request)
     {
-        $productId = $request->product_id;
+        $productId = $request->id;
         $cart = session()->get('cart', []);
-
         if (isset($cart[$productId])) {
             $cart[$productId]['quantity']++;
+            $price = number_format($cart[$productId]['quantity'] * $cart[$productId]['price'],2);
             session()->put('cart', $cart);
         }
 
-        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity']]);
+        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity'], 'price' => $price]);
     }
 
     public function decreaseQuantity(Request $request)
     {
-        $productId = $request->product_id;
+        $productId = $request->id;
         $cart = session()->get('cart', []);
 
         if (isset($cart[$productId]) && $cart[$productId]['quantity'] > 1) {
             $cart[$productId]['quantity']--;
+            $price = number_format($cart[$productId]['quantity'] * $cart[$productId]['price'],2);
             session()->put('cart', $cart);
         }
 
-        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity']]);
+        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity'], 'price' => $price]);
     }
 
-    // public function cart()
-    // {
-    //     $cart = session()->get('cart');
-    //     return $cart;
-    //     return view('frontend.cart.index', compact('cart'));
-    // }
     public function cartItem()
     {
         $cart = session()->get('cart', []);

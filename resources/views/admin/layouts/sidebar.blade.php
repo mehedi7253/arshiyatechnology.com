@@ -53,6 +53,17 @@
                     </li>
                 </ul><!-- .nk-menu-sub -->
             </li>
+            <li class="nk-menu-item has-sub">
+                <a href="#" class="nk-menu-link nk-menu-toggle">
+                    <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                    <span class="nk-menu-text">Manage Order's</span>
+                </a>
+                <ul class="nk-menu-sub">
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.order.index')}}" class="nk-menu-link"><span class="nk-menu-text">Manage order</span></a>
+                    </li>
+                </ul><!-- .nk-menu-sub -->
+            </li>
         </ul><!-- .nk-menu -->
     </div><!-- .nk-sidebar-menu -->
 </div>

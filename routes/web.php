@@ -58,4 +58,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
     Route::get('email-setting', [AdminController::class, 'emailSettingIndex'])->name('email-setting.index');
     Route::post('email-setting/update', [AdminController::class, 'emailSettingUpdate'])->name('email-setting.update');
     Route::get('email-setting/test-mail', [AdminController::class, 'testMail'])->middleware('mail-service')->name('email-setting.test-mail');
+
+    //orders
+    Route::get('orders', [AdminController::class, 'allOrder'])->name('order.index');
+    Route::get('oder-details/{id}', [AdminController::class, 'orderDetails'])->name('order.details');
 });
