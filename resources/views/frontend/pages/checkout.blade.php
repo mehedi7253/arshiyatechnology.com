@@ -26,7 +26,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
+    @include('frontend.layouts.tag')
 </head>
 <body>
     <section id="topbar" class="d-flex align-items-center">
@@ -128,7 +128,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group pt-4">
-                                        <button class="btn btn-success">Place Order</button>
+                                        <button class="btn btn-success" onclick="purchase">Place Order</button>
                                     </div>
                                 </div>
                             </form>
@@ -210,6 +210,22 @@
             }
             toastr.success("{{ session('message') }}");
         @endif
+
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        dataLayer.push({
+            event    : "purchase",
+            ecommerce: {
+                value         : "{{ totalPrice() }}",
+                shipping      : "{{0.00}}",
+                currency      : "BDT",
+                items         : [@foreach ($cartData as $orderProduct){
+                    item_name    : "{{$orderProduct['name']}}",
+                    item_id      : "{{$orderProduct['productId']}}",
+                    price        : "{{$orderProduct['price'] * $orderProduct['quantity'] }}",
+                    quantity     : "{{$orderProduct['quantity']}}"
+                },@endforeach]
+            }
+        });
     </script>
 </body>
 </html>

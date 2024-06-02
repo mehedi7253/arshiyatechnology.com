@@ -23,7 +23,7 @@
             <div class="container d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <h1>
-                        <a href="index.html"> <img src="{{ siteSetting()->logo }}"></a>
+                        <a href="/"> <img src="{{ siteSetting()->logo }}"></a>
                     </h1>
                 </div>
                 <nav id="navbar" class="navbar">
@@ -127,10 +127,10 @@
                                     <br/>
                                     <div class="mt-2" style="text-align: center">
                                         @if ($product->discount_price == true)
-                                            <span class="badge bg-danger">{{ number_format($product->price,2) }}</span>
-                                            <span class="badge bg-success">{{ number_format($product->discount_price,2) }}</span>
+                                            <span class="text-success">{{ number_format($product->discount_price,2) }}</span>
+                                            <del class="text-danger">{{ number_format($product->price,2) }}</del>
                                         @else
-                                            <span class="badge bg-success">{{ number_format($product->price,2) }}</span>
+                                            <span class="text-success">{{ number_format($product->price,2) }}</span>
                                         @endif
                                     </div>
                                     <div class="mt-2 text-center">

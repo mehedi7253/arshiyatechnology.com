@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://arshiyatechnology.com/</loc>
+  <lastmod>2024-06-02T03:51:11+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://arshiyatechnology.com/cart-item</loc>
+  <lastmod>2024-06-02T03:51:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://arshiyatechnology.com/product-details/w1105a-w1106a-w1107a-105a-106a-107a</loc>
+  <lastmod>2024-06-02T03:51:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://arshiyatechnology.com/product-details/cto-850xk-cto-850xc-cto-850xm-cto-850xy</loc>
+  <lastmod>2024-06-02T03:51:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://arshiyatechnology.com/orders</loc>
+  <lastmod>2024-06-02T03:51:11+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

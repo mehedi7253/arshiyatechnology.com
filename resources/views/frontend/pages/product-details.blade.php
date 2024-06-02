@@ -1,10 +1,3 @@
-{{-- {{$product}} --}}
-{{-- {{ $product->productImage->product_id }} --}}
-{{-- @foreach ($product as $sub_image)
-    @foreach ($sub_image->productImage as $sub_image2)
-        {{ $sub_image2->sub_image }}
-    @endforeach
-@endforeach () --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +26,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
+    @include('frontend.layouts.tag')
 </head>
 <body>
     <section id="topbar" class="d-flex align-items-center">
@@ -104,8 +97,7 @@
                             <button class="btn btn-sm btn-info" id="minus">-</button>
                             <input type="text" class="quantity col-1 text-center" id="quantity" disabled value="1" min="1">
                             <button class="btn btn-sm  btn-info" id="plus">+</button>
-                            <button class="btn btn-outline-info add-to-cart mr-2" data-id="{{$product->id}}">Add to cart</button>
-
+                            <button class="btn btn-outline-info add-to-cart mr-2" data-id="{{$product->id}}" onclick="addToCartData({{$product}})">Add to cart</button>
                         </div>
                     </div>
 
@@ -123,29 +115,29 @@
         <h3>Releted Product</h3>
             <div class="swiper all_product_swiper">
                 <div class="swiper-wrapper">
-                  @foreach ($all_product as $product)
+                  @foreach ($all_product as $reletaed_product)
                       <div class="swiper-slide">
                           <div class="card" style="border: 1px solid #70ced9;">
-                              <a href="{{ route('product.details', $product->slug) }}">
-                                  <img src="{{ $product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0 p-2" style="height: 200px">
+                              <a href="{{ route('product.details', $reletaed_product->slug) }}">
+                                  <img src="{{ $reletaed_product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0 p-2" style="height: 200px">
                               </a>
                               <div class="card-body">
-                                  <a href="{{ route('product.details', $product->slug) }}">{{ $product->product_name }}</a>
+                                  <a href="{{ route('product.details', $reletaed_product->slug) }}">{{ $reletaed_product->product_name }}</a>
                                   <br/>
                                   <div class="mt-2" style="text-align: center">
-                                      @if ($product->discount_price == true)
-                                          <span class="badge bg-danger">{{ number_format($product->price,2) }}</span>
-                                          <span class="badge bg-success">{{ number_format($product->discount_price,2) }}</span>
-                                      @else
-                                          <span class="badge bg-success">{{ number_format($product->price,2) }}</span>
+                                      @if ($reletaed_product->discount_price == true)
+                                          <span class="text-success">{{ number_format($reletaed_product->discount_price,2) }}</span>
+                                          <del class="text-danger">{{ number_format($reletaed_product->price,2) }}</del>
+                                        @else
+                                          <span class="text-success">{{ number_format($reletaed_product->price,2) }}</span>
                                       @endif
                                   </div>
                                   <div class="mt-2 text-center">
-                                      <button class="btn btn-primary add-to-cart" data-id="{{ $product->id }}">Add to Cart</button>
+                                      <button class="btn btn-primary add-to-cart" data-id="{{ $reletaed_product->id }}">Add to Cart</button>
                                       <div class="quantity-controls d-none">
-                                          <button class="btn btn-secondary decrement" data-id="{{ $product->id }}">-</button>
+                                          <button class="btn btn-secondary decrement" data-id="{{ $reletaed_product->id }}">-</button>
                                           <span class="quantity">1</span>
-                                          <button class="btn btn-secondary increment" data-id="{{ $product->id }}">+</button>
+                                          <button class="btn btn-secondary increment" data-id="{{ $reletaed_product->id }}">+</button>
                                       </div>
                                   </div>
                               </div>
@@ -325,5 +317,44 @@
             });
         });
     </script>
+
+    <script type = "text/javascript">
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        dataLayer.push({
+            event    : "view_item",
+            ecommerce: {
+                items: [{
+                    item_name     : "{{ $product->product_name }}", // Name or ID is required.
+                    item_id       : "{{ $product->id }}",
+                    price         : "{{ number_format($product->price,2) }}",
+                    discount      : "{{ number_format($product->discount,2) }}",
+                    item_category : "",
+                    item_variant  : "",
+                    index         : 0,  // If associated with a list selection.
+                    quantity      : "1",
+                }]
+            }
+        });
+
+        function addToCartData (data) {
+            console.log('data', data);
+            dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+            dataLayer.push({
+                event    : "add_to_cart",
+                ecommerce: {
+                items: [{
+                    item_name     : data['name'], // Name or ID is required.
+                    item_id       : data['id'],
+                    price         : data['price'],
+                    index         : 0,  // If associated with a list selection.
+                    quantity      : data['quantity'],
+                }]
+                }
+            });
+        }
+
+
+    </script>
+
 </body>
 </html>

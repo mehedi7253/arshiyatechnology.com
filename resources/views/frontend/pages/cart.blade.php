@@ -26,7 +26,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
+    @include('frontend.layouts.tag')
 </head>
 <body>
     <section id="topbar" class="d-flex align-items-center">
@@ -121,7 +121,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="6" class="text-end">
-                                        <a href="{{ route('orders.index')}}" class="btn btn-success">Checkout</a>
+                                        <a href="{{ route('orders.index')}}" class="btn btn-success" onclick="begin_checkout">Checkout</a>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -203,8 +203,6 @@
             }
             toastr.success("{{ session('message') }}");
         @endif
-
-
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -270,6 +268,20 @@
                 });
             }
 
+        });
+    </script>
+    <script>
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        dataLayer.push({
+            event    : "begin_checkout",
+            ecommerce: {
+                items: [@foreach ($cart as $cart_item){
+                    item_name     : "{{ $cart_item['name'] }}",
+                    item_id       : "{{ $cart_item['productId'] }}",
+                    price         : "{{ $cart_item['price'] * $cart_item['quantity'] }}",
+                    quantity      : "{{ $cart_item['quantity'] }}"
+                },@endforeach]
+            }
         });
     </script>
 </body>

@@ -18,7 +18,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('frontend.pages.checkout');
+        $cartData = session()->get('cart');
+        return view('frontend.pages.checkout', compact('cartData'));
     }
 
     /**
