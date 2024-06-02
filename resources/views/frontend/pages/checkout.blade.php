@@ -128,7 +128,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group pt-4">
-                                        <button class="btn btn-success" onclick="purchase">Place Order</button>
+                                        <button class="btn btn-success" onclick="purchase()">Place Order</button>
                                     </div>
                                 </div>
                             </form>
@@ -210,19 +210,35 @@
             }
             toastr.success("{{ session('message') }}");
         @endif
-
+    </script>
+    <script>
+        function purchase() {
+            dataLayer.push({
+                event    : "purchase",
+                ecommerce: {
+                    value         : "{{ totalPrice() }}",
+                    shipping      : "{{0.00}}",
+                    currency      : "BDT",
+                    items         : [@foreach ($cartData as $orderProduct){
+                        item_name    : "{{$orderProduct['name']}}",
+                        item_id      : "{{$orderProduct['productId']}}",
+                        price        : "{{$orderProduct['price'] * $orderProduct['quantity'] }}",
+                        quantity     : "{{$orderProduct['quantity']}}",
+                        currency     : "BDT"
+                    },@endforeach]
+                }
+            });
+        }
         dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
         dataLayer.push({
-            event    : "purchase",
+            event    : "begin_checkout",
             ecommerce: {
-                value         : "{{ totalPrice() }}",
-                shipping      : "{{0.00}}",
-                currency      : "BDT",
-                items         : [@foreach ($cartData as $orderProduct){
-                    item_name    : "{{$orderProduct['name']}}",
-                    item_id      : "{{$orderProduct['productId']}}",
-                    price        : "{{$orderProduct['price'] * $orderProduct['quantity'] }}",
-                    quantity     : "{{$orderProduct['quantity']}}"
+                items: [@foreach ($cartData as $cart_item){
+                    item_name     : "{{ $cart_item['name'] }}",
+                    item_id       : "{{ $cart_item['productId'] }}",
+                    price         : "{{ $cart_item['price'] * $cart_item['quantity'] }}",
+                    quantity      : "{{ $cart_item['quantity'] }}",
+                    currency      : "BDT"
                 },@endforeach]
             }
         });

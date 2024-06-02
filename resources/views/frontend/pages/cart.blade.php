@@ -271,18 +271,21 @@
         });
     </script>
     <script>
-        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
-        dataLayer.push({
-            event    : "begin_checkout",
-            ecommerce: {
-                items: [@foreach ($cart as $cart_item){
-                    item_name     : "{{ $cart_item['name'] }}",
-                    item_id       : "{{ $cart_item['productId'] }}",
-                    price         : "{{ $cart_item['price'] * $cart_item['quantity'] }}",
-                    quantity      : "{{ $cart_item['quantity'] }}"
-                },@endforeach]
-            }
-        });
+        function begin_checkout(){
+            dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+            dataLayer.push({
+                event    : "begin_checkout",
+                ecommerce: {
+                    items: [@foreach ($cart as $cart_item){
+                        item_name     : "{{ $cart_item['name'] }}",
+                        item_id       : "{{ $cart_item['productId'] }}",
+                        price         : "{{ $cart_item['price'] * $cart_item['quantity'] }}",
+                        quantity      : "{{ $cart_item['quantity'] }}",
+                        currency      : "BDT"
+                    },@endforeach]
+                }
+            });
+        }
     </script>
 </body>
 </html>

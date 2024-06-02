@@ -328,10 +328,9 @@
                     item_id       : "{{ $product->id }}",
                     price         : "{{ number_format($product->price,2) }}",
                     discount      : "{{ number_format($product->discount,2) }}",
-                    item_category : "",
-                    item_variant  : "",
                     index         : 0,  // If associated with a list selection.
                     quantity      : "1",
+                    currency     : "BDT"
                 }]
             }
         });
@@ -348,12 +347,11 @@
                     price         : data['price'],
                     index         : 0,  // If associated with a list selection.
                     quantity      : data['quantity'],
+                    currency      : "BDT"
                 }]
                 }
             });
         }
-
-
     </script>
 
 </body>
