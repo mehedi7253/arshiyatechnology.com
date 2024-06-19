@@ -101,4 +101,17 @@ class PageController extends Controller
          return redirect()->back()->with($notification);
 
     }
+
+
+    public function products()
+    {
+        $products = Product::all();
+        return view('frontend.pages.products', compact('products'));
+    }
+
+    public function details($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        return view('frontend.pages.details', compact('product'));
+    }
 }
