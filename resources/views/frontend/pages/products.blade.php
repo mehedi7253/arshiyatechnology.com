@@ -8,6 +8,7 @@
 
 </head>
 <body>
+    <h3 id="total_product">cart item: </h3>
     <div id="products">
         <!-- Example product structure -->
 
@@ -40,6 +41,9 @@
 
             // Function to update UI
             function updateUI() {
+                totalProducts = Object.keys(cart).length;
+                $('#total_product').text(`Cart item: ${totalProducts}`);
+                
                 $('.product').each(function() {
                     let productId = $(this).data('id');
                     let quantity = cart[productId] || 0;
