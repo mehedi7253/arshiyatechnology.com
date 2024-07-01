@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Page;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -47,5 +48,46 @@ class CartController extends Controller
     {
         $cart = Session::get('cart', []);
         return response()->json(['cart' => $cart]);
+    }
+
+
+    /// using package
+    public function add(Request $request)
+    {
+        $product = Product::find($request->product_id);
+        Cart::add([
+            'id'    => $product->id,
+            'name'   => $product->product_name,
+            'qty'    => $request->quantity,
+            'price'  => $product->discount_price ?? $product->price,
+            'weight' => 0,
+            'options' => [''],
+        ]);
+
+        // Cart::add($product->id, $request->name, $request->quantity, $request->price, $request->weight, $request->options);
+        return redirect()->route('cart.index')->with('success', 'Item added to cart!');
+    }
+    public function index()
+    {
+        $cartContent = Cart::content();
+        return view('frontend.pages.cart2', compact('cartContent'));
+    }
+
+    public function remove($rowId)
+    {
+        Cart::remove($rowId);
+        return redirect()->route('cart.index')->with('success', 'Item removed from cart!');
+    }
+
+    public function update(Request $request, $rowId)
+    {
+        Cart::update($rowId, $request->quantity);
+        return redirect()->route('cart.index')->with('success', 'Cart updated!');
+    }
+
+    public function clear()
+    {
+        Cart::destroy();
+        return redirect()->route('cart.index')->with('success', 'Cart cleared!');
     }
 }
