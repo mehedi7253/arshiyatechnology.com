@@ -33,7 +33,7 @@
                         <li><a href="#products">Shop Now</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#client">Clients</a></li>
-                        <li><a href="{{route('cart.item')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px">{{ cartData() }}</sup></a></li>
+                        <li><a href=""><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px">{{ cartData() }}</sup></a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav>

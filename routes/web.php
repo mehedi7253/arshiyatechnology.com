@@ -69,15 +69,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
 Route::get('/products', [PageController::class, 'products'])->name('products.index');
 // // Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
-// Route::post('/cart/add', [CartController::class, 'addToCart']);
-// Route::post('/cart/update', [CartController::class, 'updateCart']);
-// Route::get('/cart', [CartController::class, 'getCart']);
-// Route::get('details/{slug}', [PageController::class, 'details'])->name('product.details');
+Route::post('/cart/add', [CartController::class, 'addToCart']);
+Route::post('/cart/update', [CartController::class, 'updateCart']);
+Route::get('/cart', [CartController::class, 'getCart']);
+Route::get('details/{slug}', [PageController::class, 'details'])->name('product.details');
 
-
-
-Route::get('cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('cart/add', [CartController::class, 'add'])->name('cart.add');
-Route::get('cart/remove/{rowId}', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('cart/update/{rowId}', [CartController::class, 'update'])->name('cart.update');
-Route::get('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
