@@ -33,7 +33,7 @@
                         <li><a href="#products">Shop Now</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#client">Clients</a></li>
-                        <li><a href=""><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px">{{ cartData() }}</sup></a></li>
+                        <li><a href="{{ route('cart.index')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px"><span id="total_product">0</span></sup></a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav>
@@ -115,33 +115,47 @@
                   <h2>Our porducts</h2>
                </div>
                <div class="swiper mySwiper">
-                  <div class="swiper-wrapper">
-                    @foreach ($products as $product)
-                        <div class="swiper-slide">
-                            <div class="card" style="border: 1px solid #70ced9;">
-                                <a href="{{ route('product.details', $product->slug) }}">
-                                    <img src="{{ $product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0 p-2" style="height: 200px">
-                                </a>
-                                <div class="card-body">
-                                    <a href="{{ route('product.details', $product->slug) }}">{{ $product->product_name }}</a>
-                                    <br/>
-                                    <div class="mt-2" style="text-align: center">
-                                        @if ($product->discount_price == true)
-                                            <span class="text-success">{{ number_format($product->discount_price,2) }}</span>
-                                            <del class="text-danger">{{ number_format($product->price,2) }}</del>
-                                        @else
-                                            <span class="text-success">{{ number_format($product->price,2) }}</span>
-                                        @endif
-                                    </div>
-                                    <div class="mt-2 text-center">
-                                        <button class="btn btn-primary add-to-cart" data-id="{{ $product->id }}">Add to Cart</button>
-                                        {{-- <a href="{{ route('product.details', $product->slug) }}" class="btn btn-sm btn-outline-info">View Details</a> --}}
+                    <div class="swiper-wrapper" id="products">
+                        @foreach ($products as $product)
+                            <div class="swiper-slide">
+                                <div class="card product" style="border: 1px solid #70ced9;" data-id="{{ $product->id }}" data-price="{{ $product->discount_price ?? $product->price }}">
+                                    <a href="{{ route('product.details', $product->slug) }}">
+                                        <img src="{{ $product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0 p-2" style="height: 200px">
+                                    </a>
+                                    <div class="card-body">
+                                        <a href="{{ route('product.details', $product->slug) }}">{{ $product->product_name }}</a>
+                                        <br/>
+                                        <div class="mt-2" style="text-align: center">
+                                            @if ($product->discount_price == true)
+                                                <span class="text-success">{{ number_format($product->discount_price,2) }}</span>
+                                                <del class="text-danger">{{ number_format($product->price,2) }}</del>
+                                            @else
+                                                <span class="text-success">{{ number_format($product->price,2) }}</span>
+                                            @endif
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <button class="add-to-cart btn btn-info">Add to Cart</button>
+                                            {{-- <div class="quantity-controls"  style="display: none;">
+                                                <button class="minus">-</button>
+                                                <span class="quantity">0</span>
+                                                <button class="plus">+</button>
+                                            </div> --}}
+
+                                            <div class="btn-group me-2 card-buttons me-auto quantity-controls"  role="group" aria-label="First group" style="display: none;">
+                                                <button type="button" class="btn btn-info border btn-sm minus">&#9866;</button>
+                                                <button type="button" class="border-1" style="width: 100px; border: 1px solid #0dcaf0">
+                                                    <span class="quantity">0</span>
+                                                </button>
+                                                <button type="button" class="btn btn-info border btn-sm plus">&#10010;</button>
+                                            </div>
+                                            {{-- <button class="btn btn-primary add-to-cart" data-id="{{ $product->id }}">Add to Cart</button> --}}
+                                            {{-- <a href="{{ route('product.details', $product->slug) }}" class="btn btn-sm btn-outline-info">View Details</a> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                  </div>
+                        @endforeach
+                    </div>
                   <div class="swiper-pagination"></div>
                </div>
             </div>
@@ -266,6 +280,7 @@
       <!-- End Footer -->
       <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
       <!-- Vendor JS Files -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
       <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -276,7 +291,7 @@
       <script src="assets/js/main.js"></script>
       <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
+      <script src="{{asset('assets/js/cart.js') }}"></script>
       <script>
         var swiper = new Swiper(".mySwiper", {
            slidesPerView: 4,
@@ -312,33 +327,6 @@
             toastr.success("{{ session('message') }}");
         @endif
 
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('.add-to-cart').click(function() {
-                var productId = $(this).data('id');
-                var quantity = 1;
-                var button = $(this);
-                $.ajax({
-                    url: '/cart',
-                    method: 'POST',
-                    data: { product_id: productId, quantity: quantity },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success("product added successfully");
-                            //reload after 2 seconds
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        }
-                    }
-                });
-            });
-        });
       </script>
    </body>
 </html>

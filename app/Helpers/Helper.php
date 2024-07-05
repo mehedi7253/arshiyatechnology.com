@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Product;
 use App\Models\SiteSetting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 if(!function_exists('success'))
 {
@@ -91,7 +93,10 @@ if (!function_exists('totalPrice')) {
         $totalPrice = 0;
         if ($cartData) {
             foreach ($cartData as $key => $value) {
-                $totalPrice += $value['price'] * $value['quantity'];
+                $product = Product::find($key);
+                if ($product) {
+                    $totalPrice += $product->price * $value;
+                }
             }
         }
         return $totalPrice;

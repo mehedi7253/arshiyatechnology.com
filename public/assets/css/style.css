@@ -2047,3 +2047,18 @@ section {
   font-size: 13px;
   color: #fff;
 }
+.plus-minus input{
+    max-width: 50px;
+}
+
+.card-buttons{
+    margin-right: -1px;
+}
+.card-buttons input {
+  width: 100px;
+  height: 35px !important;
+  padding-right: 5px;
+  padding-left: 15px;
+  text-align: center;
+  max-width: 100px;
+}

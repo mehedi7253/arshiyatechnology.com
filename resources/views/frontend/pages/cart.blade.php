@@ -57,7 +57,7 @@
                     <li><a href="/">Shop Now</a></li>
                     <li><a href="/">Services</a></li>
                     <li><a href="/">Clients</a></li>
-                    <li><a href="{{route('cart.item')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px">{{ cartData() }}</sup></a></li>
+                    <li><a href="{{route('cart.index')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px"><span id="total_product">0</span></sup></a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -82,33 +82,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($cart as $i=>$item)
+                                @foreach ($products as $i=>$item)
                                     <tr>
-                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $i+1 }}</td>
                                         <td>
-                                            <img src="{{ $item['image'] }}" style="height: 50px; width: 50px" class="img-thumbnail">
+                                            <img src="{{ $item->image }}" style="height: 50px; width: 50px" class="img-thumbnail">
                                         </td>
                                         <td>
-                                            <a href="{{ route('product.details', $item['url']) }}" class="text-decoration-none text-dark">{{ $item['name'] }}</a>
+                                            <a href="{{ route('product.details', $item->slug ) }}" class="text-decoration-none text-dark">{{ $item->product_name }}</a>
                                         </td>
                                         <td>
-                                            <div class="input-group">
-                                                <button class="decrease btn btn-sm btn-info" data-id="{{ $item['productId'] }}">-</button>
-                                                <span class="quantity col-3 text-center border" data-id="{{ $item['productId'] }}">{{ $item['quantity'] }}</span>
-                                                <button class="increase btn btn-sm btn-info" data-id="{{ $item['productId'] }}">+</button>
-                                                {{-- <input class="sub_total" data-id="{{ $item['productId'] }}"  value="{{ number_format($item['quantity'] * $item['price'],2) }}"> --}}
+                                            {{-- {{ $cart[$item->id] }} --}}
+                                            <div  id="products">
+                                                <div class="input-group product" data-id="{{ $item->id }}" data-price="{{ $item->discount_price ?? $item->price }}">
+
+                                                    <button class="add-to-cart btn btn-info">Add to Cart</button>
+                                                    <div class="btn-group me-2 card-buttons me-auto quantity-controls"  role="group" aria-label="First group" style="display: none;">
+                                                        <button type="button" class="btn btn-info border btn-sm minus">&#9866;</button>
+                                                        <button type="button" class="border-1" style="width: 100px; border: 1px solid #0dcaf0">
+                                                            <span class="quantity">0</span>
+                                                        </button>
+                                                        <button type="button" class="btn btn-info border btn-sm plus">&#10010;</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <span id="price">{{ number_format($item['quantity'] * $item['price'],2) }}</span>
-                                            {{-- {{ number_format($item['quantity'] * $item['price'],2) }} --}}
+                                           <span id="totalPrice"></span>
                                         </td>
                                         <td>
-                                            <form action="{{ route('cart.remove', $item['productId'])}}" method="POST" >
+                                          <button class="remove">Remove</button>
+
+                                            {{-- <form action="{{ route('cart.remove', $item['productId'])}}" method="POST" >
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Are you sure to delete !!');"><i class="bi bi-trash"></i></button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -116,7 +125,9 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="4" class="text-end">Total</td>
-                                    <td colspan="1" class="text-center">{{ number_format(totalPrice(),2) }}</td>
+                                    <td colspan="1" class="text-center">
+                                        {{  number_format(totalPrice(),2) }}
+                                    </td>
                                     <td colspan="1" class="text-center"></td>
                                 </tr>
                                 <tr>
@@ -194,7 +205,7 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
+    <script src="{{ asset('assets/js/cart.js') }}"></script>
     <script>
         @if (Session::has('message'))
             toastr.options = {
@@ -203,74 +214,9 @@
             }
             toastr.success("{{ session('message') }}");
         @endif
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $('.increase').click(function() {
-                var id = $(this).data('id');
-                var quantity = parseInt($(`.quantity[data-id="${id}"]`).text());
-                quantity++;
-                updateQuantity(id, quantity);
-            });
 
-            $('.decrease').click(function() {
-                var id = $(this).data('id');
-                var quantity = parseInt($(`.quantity[data-id="${id}"]`).text());
-                if (quantity > 0) {
-                    quantity--;
-                    decreaseQuantity(id, quantity);
-                }
-            });
-
-            function updateQuantity(id, quantity) {
-                $.ajax({
-                    url: '/cart/increase',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        id: id,
-                        quantity: quantity,
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $(`.quantity[data-id="${id}"]`).text(response.quantity);
-                            // $('#price').text(response.price);
-                            //reload 1 second later
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }
-                    }
-                });
-            }
-
-            function decreaseQuantity(id, quantity) {
-                $.ajax({
-                    url: '/cart/decrease',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        id: id,
-                        quantity: quantity,
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $(`.quantity[data-id="${id}"]`).text(response.quantity);
-                            // $('#price').text(response.price);
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }
-                    }
-                });
-            }
-
-        });
     </script>
-    <script>
+    {{-- <script>
         function begin_checkout(){
             dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
             dataLayer.push({
@@ -286,6 +232,6 @@
                 }
             });
         }
-    </script>
+    </script> --}}
 </body>
 </html>

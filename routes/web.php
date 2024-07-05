@@ -32,7 +32,7 @@ Route::get('/', [PageController::class, 'index']);
 // Route::post('/cart/decrease', [PageController::class, 'decreaseQuantity'])->name('cart.decrease');
 // Route::get('/cart-item',[PageController::class, 'cartItem'])->name('cart.item');
 // Route::delete('/remove-item/{productId}', [PageController::class, 'removeItem'])->name('cart.remove');
-// Route::get('/product-details/{slug}', [PageController::class, 'productDetails'])->name('product.details');
+Route::get('/product-details/{slug}', [PageController::class, 'productDetails'])->name('product.details');
 Route::resource('/orders', OrderController::class);
 Route::get('orders',[OrderController::class, 'index'])->name('orders.index');
 Route::post('orders/store', [OrderController::class,'store'])->middleware('mail-service')->name('orders.store');
@@ -66,11 +66,13 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
 });
 
 
-Route::get('/products', [PageController::class, 'products'])->name('products.index');
+// Route::get('/products', [PageController::class, 'products'])->name('products.index');
 // // Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
 Route::post('/cart/add', [CartController::class, 'addToCart']);
 Route::post('/cart/update', [CartController::class, 'updateCart']);
-Route::get('/cart', [CartController::class, 'getCart']);
-Route::get('details/{slug}', [PageController::class, 'details'])->name('product.details');
+// Route::post('/cart/remove', [CartController::class, 'removeCart']);
+// Route::delete('/remove-item/{productId}', [PageController::class, 'removeItem'])->name('cart.remove');
+Route::delete('/cart/remove{productId}', [CartController::class, 'removeProduct']);
+Route::get('/cart', [CartController::class, 'getCart'])->name('cart.index');
 

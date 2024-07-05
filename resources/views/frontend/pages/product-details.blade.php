@@ -57,7 +57,7 @@
                     <li><a href="/">Shop Now</a></li>
                     <li><a href="/">Services</a></li>
                     <li><a href="/">Clients</a></li>
-                    <li><a href="{{route('cart.item')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px">{{ cartData() }}</sup></a></li>
+                    <li><a href=""><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px"><span id="total_product">0</span></sup></a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -92,15 +92,18 @@
                             <del style="font-size: 20px; font-weight: bold; color: red">{{ number_format($product->price,2) }}</del>
                         @endif
                     </p>
-                    <div class="py-3">
-                        <div class="input-group">
-                            <button class="btn btn-sm btn-info" id="minus">-</button>
-                            <input type="text" class="quantity col-1 text-center" id="quantity" disabled value="1" min="1">
-                            <button class="btn btn-sm  btn-info" id="plus">+</button>
-                            <button class="btn btn-outline-info add-to-cart mr-2" data-id="{{$product->id}}" onclick="addToCartData({{$product}})">Add to cart</button>
+                    <div class="py-3" id="products">
+                        <div class="input-group product" data-id="{{ $product->id }}">
+                            <button class="add-to-cart btn btn-info">Add to Cart</button>
+                            <div class="btn-group me-2 card-buttons me-auto quantity-controls"  role="group" aria-label="First group" style="display: none;">
+                                <button type="button" class="btn btn-info border btn-sm minus">&#9866;</button>
+                                <button type="button" class="border-1" style="width: 100px; border: 1px solid #0dcaf0">
+                                    <span class="quantity">0</span>
+                                </button>
+                                <button type="button" class="btn btn-info border btn-sm plus">&#10010;</button>
+                            </div>
                         </div>
                     </div>
-
                 </div>
                 <hr />
                 <label>Product Description:</label>
@@ -211,7 +214,7 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
+    <script src="{{ asset('assets/js/cart.js') }}"></script>
     <script>
         @if (Session::has('message'))
             toastr.options = {
@@ -269,53 +272,6 @@
             }
         });
 
-        const minusButton = document.getElementById('minus');
-        const plusButton = document.getElementById('plus');
-        const inputField = document.getElementById('quantity');
-
-        minusButton.addEventListener('click', event => {
-        event.preventDefault();
-        const currentValue = Number(inputField.value) || 0;
-            if (currentValue <= 1) {
-                return;
-            }else{
-                inputField.value = currentValue - 1;
-            }
-        });
-
-        plusButton.addEventListener('click', event => {
-        event.preventDefault();
-        const currentValue = Number(inputField.value) || 0;
-            inputField.value = currentValue + 1;
-        });
-
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('.add-to-cart').click(function() {
-                var productId = $(this).data('id');
-                var quantity = inputField.value;
-                var button = $(this);
-                $.ajax({
-                    url: '/cart',
-                    method: 'POST',
-                    data: { product_id: productId, quantity: quantity },
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success("product added successfully");
-                            //reload after 2 seconds
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        }
-                    }
-                });
-            });
-        });
     </script>
 
     <script type = "text/javascript">
@@ -334,24 +290,6 @@
                 }]
             }
         });
-
-        function addToCartData (data) {
-            console.log('data', data);
-            dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
-            dataLayer.push({
-                event    : "add_to_cart",
-                ecommerce: {
-                items: [{
-                    item_name     : data['name'], // Name or ID is required.
-                    item_id       : data['id'],
-                    price         : data['price'],
-                    index         : 0,  // If associated with a list selection.
-                    quantity      : data['quantity'],
-                    currency      : "BDT"
-                }]
-                }
-            });
-        }
     </script>
 
 </body>
