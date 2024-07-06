@@ -26,13 +26,36 @@
                                 <td>{{ $order->phone }}</td>
                                 <td>{{ $order->total }}</td>
                                 <td>
-                                    @if ($order->status == 'pending')
-                                        <span class="btn btn-danger btn-sm">Pending</span>
-                                    @elseif ($order->status == 'processing')
-                                        <span class="btn btn-info btn-sm">Processing</span>
-                                    @else
-                                        <span class="btn btn-success btn-sm">Complete</span>
-                                    @endif
+                                    <div class="btn-group">
+                                        @if($order->status == 'pending')
+                                        <button type="button" class="btn btn-sm btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Pending
+                                        </button>
+                                        @elseif($order->status == 'inprogress')
+                                        <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Processing
+                                        </button>
+                                        @elseif($order->status == 'complete')
+                                        <button type="button" class="btn btn-sm btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Delivered
+                                        </button>
+                                        @elseif($order->status == 'canceled')
+                                        <button type="button" class="btn btn-sm btn-outline-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Canceled
+                                        </button>
+                                        @endif
+
+                                        <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{route('admin.order.status',['id'=>$order->id, 'status' => 'inprogress'])}}">
+                                            In Progress
+                                        </a>
+                                        <a class="dropdown-item" href="{{route('admin.order.status',['id'=>$order->id, 'status' => 'complete'])}}">
+                                            Delivered
+                                        </a>
+                                        <a class="dropdown-item" href="{{route('admin.order.status',['id'=>$order->id, 'status' => 'canceled'])}}">
+                                            Canceled
+                                        </a>
+                                    </div>
                                 </td>
                                 <td>
                                     <a href="{{route('admin.order.details', $order->id)}}" class="btn btn-sm btn-outline-info">view</a>

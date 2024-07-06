@@ -27,11 +27,6 @@ Auth::routes();
 
 // front page routes
 Route::get('/', [PageController::class, 'index']);
-// Route::post('/cart', [PageController::class, 'addToCart'])->name('cart.add');
-// Route::post('/cart/increase', [PageController::class, 'increaseQuantity'])->name('cart.increase');
-// Route::post('/cart/decrease', [PageController::class, 'decreaseQuantity'])->name('cart.decrease');
-// Route::get('/cart-item',[PageController::class, 'cartItem'])->name('cart.item');
-// Route::delete('/remove-item/{productId}', [PageController::class, 'removeItem'])->name('cart.remove');
 Route::get('/product-details/{slug}', [PageController::class, 'productDetails'])->name('product.details');
 Route::resource('/orders', OrderController::class);
 Route::get('orders',[OrderController::class, 'index'])->name('orders.index');
@@ -63,6 +58,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
     //orders
     Route::get('orders', [AdminController::class, 'allOrder'])->name('order.index');
     Route::get('oder-details/{id}', [AdminController::class, 'orderDetails'])->name('order.details');
+    Route::get('/order/{id}/status/{status}', [AdminController::class, 'updateStatus'])->name('order.status');
 });
 
 

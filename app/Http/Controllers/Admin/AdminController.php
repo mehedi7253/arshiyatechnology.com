@@ -193,4 +193,16 @@ class AdminController extends Controller
         $order = Order::with('orderDetails')->where('id', $id)->first();
         return view('admin.order.show', compact('page', 'order'));
     }
+
+    public function updateStatus($id, $status)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = $status;
+        $order->save();
+        $notification = [
+            'message' => 'order status update successful',
+            'alert-type' => 'success',
+        ];
+         return redirect()->back()->with($notification);
+    }
 }
