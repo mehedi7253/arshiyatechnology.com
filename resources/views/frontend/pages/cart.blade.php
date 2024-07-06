@@ -93,9 +93,8 @@
                                         </td>
                                         <td>
                                             {{-- {{ $cart[$item->id] }} --}}
-                                            <div  id="products">
+                                            <div id="products">
                                                 <div class="input-group product" data-id="{{ $item->id }}" data-price="{{ $item->discount_price ?? $item->price }}">
-
                                                     <button class="add-to-cart btn btn-info">Add to Cart</button>
                                                     <div class="btn-group me-2 card-buttons me-auto quantity-controls"  role="group" aria-label="First group" style="display: none;">
                                                         <button type="button" class="btn btn-info border btn-sm minus">&#9866;</button>
@@ -108,16 +107,18 @@
                                             </div>
                                         </td>
                                         <td>
-                                           <span id="totalPrice"></span>
+                                            <div id="products">
+                                                <div class="input-group product" data-id="{{ $item->id }}" data-price="{{ $item->discount_price ?? $item->price }}">
+                                                    <span class="price" data-id="{{ $item->id }}"></span>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>
-                                          <button class="remove">Remove</button>
-
-                                            {{-- <form action="{{ route('cart.remove', $item['productId'])}}" method="POST" >
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Are you sure to delete !!');"><i class="bi bi-trash"></i></button>
-                                            </form> --}}
+                                            <div id="products">
+                                                <div class="input-group product" data-id="{{ $item->id }}">
+                                                    <button class="remove btn btn-outline-danger" data-id="{{$item->id}}"type="submit" onclick="return confirm('Are you sure to delete !!');"><i class="bi bi-trash"></i></button>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -126,7 +127,7 @@
                                 <tr>
                                     <td colspan="4" class="text-end">Total</td>
                                     <td colspan="1" class="text-center">
-                                        {{  number_format(totalPrice(),2) }}
+                                        <span id="total_price"></span>
                                     </td>
                                     <td colspan="1" class="text-center"></td>
                                 </tr>

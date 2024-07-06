@@ -71,7 +71,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
 
 Route::post('/cart/add', [CartController::class, 'addToCart']);
 Route::post('/cart/update', [CartController::class, 'updateCart']);
-// Route::post('/cart/remove', [CartController::class, 'removeCart']);
+Route::post('/cart/remove', [CartController::class, 'removeCart']);
 // Route::delete('/remove-item/{productId}', [PageController::class, 'removeItem'])->name('cart.remove');
 Route::delete('/cart/remove{productId}', [CartController::class, 'removeProduct']);
 Route::get('/cart', [CartController::class, 'getCart'])->name('cart.index');

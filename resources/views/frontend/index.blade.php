@@ -118,7 +118,7 @@
                     <div class="swiper-wrapper" id="products">
                         @foreach ($products as $product)
                             <div class="swiper-slide">
-                                <div class="card product" style="border: 1px solid #70ced9;" data-id="{{ $product->id }}" data-price="{{ $product->discount_price ?? $product->price }}">
+                                <div class="card product" style="border: 1px solid #70ced9;"  data-id="{{ $product->id }}" data-price="{{ $product->discount_price ?? $product->price }}">
                                     <a href="{{ route('product.details', $product->slug) }}">
                                         <img src="{{ $product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0 p-2" style="height: 200px">
                                     </a>

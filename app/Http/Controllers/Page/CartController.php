@@ -42,30 +42,29 @@ class CartController extends Controller
 
         return response()->json(['cart' => $cart]);
     }
-    public function removeProduct(Request $request)
+    public function removeCart(Request $request)
     {
-        $cart = session()->get('cart');
+        $cart = Session::get('cart', []);
         $productId = $request->product_id;
+
         if (isset($cart[$productId])) {
-            $cart[$productId]['quantity']--;
-
-            if ($cart[$productId]['quantity'] == 0) {
-                unset($cart[$productId]);
-            }
-
-            session()->put('cart', $cart);
+            unset($cart[$productId]);
         }
+        Session::put('cart', $cart);
+        $notification = [
+            'message' => 'Item Remove successfully',
+            'alert-type' =>'success',
+        ];
+         return redirect()->back()->with($notification);
 
-        return redirect()->back()->with('success', 'Product removed from cart successfully.');
     }
 
     public function getCart()
     {
         $cart = Session::get('cart', []);
+        // return $cart;
         $products = Product::whereIn('id', array_keys($cart))->get();
         return view('frontend.pages.cart', compact('cart', 'products'));
-
-        // return response()->json(['cart' => $cart]);
     }
 
 

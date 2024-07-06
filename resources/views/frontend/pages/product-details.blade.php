@@ -57,7 +57,7 @@
                     <li><a href="/">Shop Now</a></li>
                     <li><a href="/">Services</a></li>
                     <li><a href="/">Clients</a></li>
-                    <li><a href=""><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px"><span id="total_product">0</span></sup></a></li>
+                    <li><a href="{{ route('cart.index')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px"><span id="total_product">0</span></sup></a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>

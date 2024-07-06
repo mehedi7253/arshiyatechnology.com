@@ -95,7 +95,7 @@ if (!function_exists('totalPrice')) {
             foreach ($cartData as $key => $value) {
                 $product = Product::find($key);
                 if ($product) {
-                    $totalPrice += $product->price * $value;
+                    $totalPrice += ($product->discount_price ?? $product->price) * $value;
                 }
             }
         }

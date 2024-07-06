@@ -11,6 +11,8 @@ $(document).ready(function() {
             function updateUI() {
                 totalProducts = Object.keys(cart).length;
                 $('#total_product').text(`${totalProducts}`);
+                // total price calculation
+
 
                 $('.product').each(function() {
                     let productId = $(this).data('id');
@@ -68,20 +70,39 @@ $(document).ready(function() {
                 }
             });
 
-            // Update price based on quantity
-            function updatePrice(productId, quantity) {
-                let price = parseFloat($(`.product[data-id="${productId}"]`).data('price'));
-                let totalPrice = price * quantity;
-                $(`.product[data-id="${productId}"] .price`).text(`${totalPrice}`);
-                
-            }
-
             // Remove product from cart
             $('.remove').click(function() {
                 let productId = $(this).closest('.product').data('id');
                 delete cart[productId];
                 localStorage.setItem('cart', JSON.stringify(cart));
-                updateUI();
+                $.post('/cart/remove', {product_id: productId, quantity: 1}, function(response) {
+                    toastr.success("Item remove success");
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                    updateUI();
+                });
+            });
+
+            // Update price based on quantity
+            function updatePrice(productId, quantity) {
+                let price = parseFloat($(`.product[data-id="${productId}"]`).data('price'));
+                let totalPrice = price * quantity;
+                $(`.product[data-id="${productId}"] .price[data-id="${productId}"]`).text(`${totalPrice.toFixed(2)}`);
+
+                //sum price
+                let sum = 0;
+                $('.price').each(function() {
+                    sum += parseFloat($(this).text());
+                });
+                $('#total_price').text(`${sum.toFixed(2)}`);
+            }
+
+            //checkout and remove all storage items
+            $('#checkout').click(function() {
+                localStorage.clear();
+                // updateUI();
+                // location.href = '/checkout';
             });
 
         });

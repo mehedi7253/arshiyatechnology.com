@@ -57,7 +57,7 @@
                     <li><a href="/">Shop Now</a></li>
                     <li><a href="/">Services</a></li>
                     <li><a href="/">Clients</a></li>
-                    <li><a href="{{route('cart.item')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px">{{ cartData() }}</sup></a></li>
+                    <li><a href="{{ route('cart.index')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px"><span id="total_product">0</span></sup></a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -128,7 +128,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group pt-4">
-                                        <button class="btn btn-success" onclick="purchase()">Place Order</button>
+                                        <button class="btn btn-success" id="checkout" onclick="purchase()">Place Order</button>
                                     </div>
                                 </div>
                             </form>
@@ -199,6 +199,7 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/cart.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
@@ -211,7 +212,7 @@
             toastr.success("{{ session('message') }}");
         @endif
     </script>
-    <script>
+    {{-- <script>
         function purchase() {
             dataLayer.push({
                 event    : "purchase",
@@ -242,6 +243,6 @@
                 },@endforeach]
             }
         });
-    </script>
+    </script> --}}
 </body>
 </html>

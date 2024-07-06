@@ -7,9 +7,11 @@ use App\Mail\OrderMail;
 use App\Mail\TestMail;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -55,14 +57,19 @@ class OrderController extends Controller
         $order->save();
 
         if($order){
-            $cartData = session()->get('cart');
-            foreach($cartData as $item)
+
+            $cartData = Session::get('cart', []);
+            $products = Product::whereIn('id', array_keys($cartData))->get();
+
+            //store data into orderDetails table
+
+            foreach($products as $item)
             {
                 $order_details = new OrderDetails();
                 $order_details->order_id = $order->id;
-                $order_details->product_name = $item['name'];
-                $order_details->quantity = $item['quantity'];
-                $order_details->price = $item['price'] * $item['quantity'];
+                $order_details->product_name = $item->product_name;
+                $order_details->quantity = $cartData[$item->id];
+                $order_details->price = ($item->discount_price ?? $item->price)* $cartData[$item->id];
                 $order_details->save();
                 session()->forget('cart');
             }
@@ -80,8 +87,7 @@ class OrderController extends Controller
         // $senderEmail = "arshiyatechnology@gmail.com";
         // $email = $request->email;
         // Mail::to($email)->send(new OrderMail($orderDetails, $senderEmail));
-
-        return redirect()->route('cart.item')->with('message', 'Your order has been placed successfully');
+        return redirect()->route('cart.index')->with('message', 'Your order has been placed successfully');
 
     }
 
