@@ -202,20 +202,23 @@
                </div>
                <div class="clients-slider swiper">
                   <div class="swiper-wrapper align-items-center">
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/acme.webp')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/apex.png')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/astra.jpeg')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/central.jpeg')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/eastwes.png')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/eskayef.png')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/generel.png')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/isphani.jpeg')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/jayson.jpeg')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/kisarganj.jpg')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/Mymensingh.jpeg')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/navana.png')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/paragon.jpeg')}}" class="img-fluid" alt=""></div>
-                     <div class="swiper-slide"><img src="{{ asset('uploads/clients/rakhen.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/Ia_FEGCy_400x400.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/bashundhara-group-vector-logo.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/7406fba6-5679-4da6-aa58-fb1692d8a562_YVt994m.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/acme.webp')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/apex.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/astra.jpeg')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/central.jpeg')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/eastwes.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/eskayef.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/generel.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/isphani.jpeg')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/jayson.jpeg')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/kisarganj.jpg')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/Mymensingh.jpeg')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/navana.png')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/paragon.jpeg')}}" class="img-fluid" alt=""></div>
+                    <div class="swiper-slide"><img src="{{ asset('uploads/clients/rakhen.png')}}" class="img-fluid" alt=""></div>
                   </div>
                   <div class="swiper-pagination"></div>
                </div>
