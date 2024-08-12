@@ -20,6 +20,16 @@ return new class extends Migration
             $table->string('image');
             $table->float('price');
             $table->float('discount_price')->nullable();
+            $table->enum('status', ['active', 'inactive']);
+            $table->longText('others')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('product_categories', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->index('product_id', 'category_id');
             $table->timestamps();
         });
     }

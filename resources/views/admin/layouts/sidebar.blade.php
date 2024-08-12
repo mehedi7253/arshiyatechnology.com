@@ -42,6 +42,20 @@
             <li class="nk-menu-item has-sub">
                 <a href="#" class="nk-menu-link nk-menu-toggle">
                     <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                    <span class="nk-menu-text">Manage Category</span>
+                </a>
+                <ul class="nk-menu-sub">
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.categories.index')}}" class="nk-menu-link"><span class="nk-menu-text">Manage Category</span></a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.categories.create')}}" class="nk-menu-link"><span class="nk-menu-text">Add Category</span></a>
+                    </li>
+                </ul><!-- .nk-menu-sub -->
+            </li>
+            <li class="nk-menu-item has-sub">
+                <a href="#" class="nk-menu-link nk-menu-toggle">
+                    <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
                     <span class="nk-menu-text">Manage Products</span>
                 </a>
                 <ul class="nk-menu-sub">

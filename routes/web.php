@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Page\CartController;
 use App\Http\Controllers\Page\OrderController;
@@ -59,6 +60,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
     Route::get('orders', [AdminController::class, 'allOrder'])->name('order.index');
     Route::get('oder-details/{id}', [AdminController::class, 'orderDetails'])->name('order.details');
     Route::get('/order/{id}/status/{status}', [AdminController::class, 'updateStatus'])->name('order.status');
+
+    //category
+    Route::resource('categories', CategoryController::class);
 });
 
 

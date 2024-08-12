@@ -22,6 +22,26 @@
                                 </span>
                             @enderror
                         </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="category_id">Category<span class="text-danger">*</span></label>
+                            <select class="form-control select2 @error('category_id') is-invalid @enderror" name="category_id[]" multiple="multiple" id="category_id" data-placeholder="Choose ...">
+                                @foreach ($categories as $mainCategory)
+                                    <optgroup label="{{ $mainCategory->category_name }}">
+                                        @foreach ($mainCategory->childCategories as $childCategory)
+                                            <option value="{{ $childCategory->id }}">
+                                                {{ $childCategory->category_name }}
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         <div class="form-group col-md-6">
                             <label>Price <sup class="text-danger font-weight-bold">*</sup></label>
                             <input type="text" name="price" placeholder="Enter price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price')}}">
@@ -88,6 +108,7 @@
 
     @push('scripts')
         <script>
+            $(".select2").select2();
              $(document).ready(function() {
                 $('#short_description').summernote({
                     placeholder: 'Enter Short Description',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class ProductController extends Controller
     public function create()
     {
         $page = "Add New Product";
-        return view('admin.product.create', compact('page'));
+        $categories = Category::whereNull('parent_id')->where('status', 'active')->get();
+        return view('admin.product.create', compact('page', 'categories'));
     }
 
     /**
@@ -39,6 +41,7 @@ class ProductController extends Controller
             'short_description' =>'required',
             'price'             =>'required',
             'image'             =>'required|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'category_id'      => 'required',
         ]);
 
         $product = new Product();
@@ -48,6 +51,7 @@ class ProductController extends Controller
         $product->price             = $request->price;
         $product->discount_price    = $request->discount_price;
         $product->slug              = Str::slug($request->product_name);
+        $product->status           = $request->status;
 
         if ($request->hasFile('image')) {
             $location = '/uploads/product/';
@@ -57,6 +61,9 @@ class ProductController extends Controller
         $product->image            = $image;
         $product->save();
 
+        if (!empty($request->category_id)) {
+            $product->categories()->attach($request->category_id);
+        }
         if ($request->hasFile('sub_image')) {
             foreach ($request->sub_image as $image) {
                 $location = '/uploads/product/';
