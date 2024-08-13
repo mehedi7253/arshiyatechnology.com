@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Page\CartController;
 use App\Http\Controllers\Page\OrderController;
 use App\Http\Controllers\Page\PageController;
+use App\Http\Controllers\Page\ShopController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -76,3 +77,5 @@ Route::post('/cart/remove', [CartController::class, 'removeCart']);
 Route::delete('/cart/remove{productId}', [CartController::class, 'removeProduct']);
 Route::get('/cart', [CartController::class, 'getCart'])->name('cart.index');
 
+//shop product
+Route::get('shop', [ShopController::class,'index'])->name('shop.index');

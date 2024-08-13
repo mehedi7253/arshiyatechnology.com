@@ -78,6 +78,27 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="form-group col-md-6">
+                            <label>Status <sup class="text-danger font-weight-bold">*</sup></label>
+                            <select name="status" class="form-control @error('status') is-invalid @enderror">
+                                <option value="active" selected>Active</option>
+                                <option value="in-active">In-Active</option>
+                            </select>
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Pack Size</label>
+                            <input type="text" name="others" class="form-control @error('others') is-invalid @enderror">
+                            @error('others')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         <div class="form-group col-md-12">
                             <label>Short Description </label>
                             <textarea name="short_description" id="short_description" class="form-control @error('short_description') is-invalid @enderror">{{ old('short_description')}}</textarea>

@@ -30,7 +30,7 @@
                     <ul>
                         <li><a class="active" href="">Home</a></li>
                         <li><a href="#about">About Us</a></li>
-                        <li><a href="#products">Shop Now</a></li>
+                        <li><a href="{{ route('shop.index')}}" target="_blank">Shop Now</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#client">Clients</a></li>
                         <li><a href="{{ route('cart.index')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px"><span id="total_product">0</span></sup></a></li>
