@@ -14,6 +14,14 @@
         background-color: white !important;
         box-shadow: none !important;
     }
+    .sub_cat{
+        padding: 15px;
+        font-size: 14px;
+        color: black;
+    }
+    .accordion-body{
+        padding: 0px !important;
+    }
 </style>
 <body>
     <!-- ======= Top Bar ======= -->
@@ -71,7 +79,7 @@
                                     <div id="collapse{{$i}}" class="accordion-collapse collapse" aria-labelledby="heading{{$i}}" data-bs-parent="#accordionExample">
                                         @foreach ($mainCategory->childCategories as $childCategory)
                                             <div class="accordion-body">
-                                                <a href="#">{{ $childCategory->category_name }}</a>
+                                                <a href="#" class="sub_cat">{{ $childCategory->category_name }}</a>
                                             </div>
                                         @endforeach
                                     </div>
