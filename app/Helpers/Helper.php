@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\SiteSetting;
 use Illuminate\Http\JsonResponse;
@@ -100,5 +101,13 @@ if (!function_exists('totalPrice')) {
             }
         }
         return $totalPrice;
+    }
+}
+
+//category
+if (!function_exists('category')) {
+    function category()
+    {
+        return Category::whereNull('parent_id')->where('status', 'active')->get();
     }
 }

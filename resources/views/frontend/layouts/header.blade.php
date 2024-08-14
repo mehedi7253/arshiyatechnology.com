@@ -34,3 +34,4 @@
     })(window,document,'script','dataLayer','GTM-55VG97Z9');
 </script>
     <!-- End Google Tag Manager -->
+@stack('scustom_style')
