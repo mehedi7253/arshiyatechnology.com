@@ -9,4 +9,4 @@
 <script src="{{ asset('') }}/assets/js/main.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="{{asset('assets/js/cart.js') }}"></script>
+<script src="{{ asset('') }}/assets/js/cart.js"></script>

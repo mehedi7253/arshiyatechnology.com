@@ -79,7 +79,7 @@
                                     <div id="collapse{{$i}}" class="accordion-collapse collapse" aria-labelledby="heading{{$i}}" data-bs-parent="#accordionExample">
                                         @foreach ($mainCategory->childCategories as $childCategory)
                                             <div class="accordion-body">
-                                                <a href="#" class="sub_cat">{{ $childCategory->category_name }}</a>
+                                                <a href="{{ route('category.product',$childCategory->slug) }}" class="sub_cat">{{ $childCategory->category_name }}</a>
                                             </div>
                                         @endforeach
                                     </div>
@@ -91,19 +91,40 @@
 
                 </div>
 
-                <div class="row col-md-9 col-sm-12 py-3">
-                    <div class="col-lg-4 col-6">
-                        <div class="card rounded-1" style="border: 1px solid #70ced9">
-                            <a href="" class="card-body">
-                                <img src="{{ asset('uploads/product/57621162.webp') }}" class="card-img-top rounded-1" alt="...">
-                                <div class="card-title">Product 1</div>
-                                <div class="card-text">$20.00</div>
-
-                            </a>
+                <div class="row col-md-9 col-sm-12 py-3" id="products">
+                    @foreach ($products as $product)
+                        <div class="col-lg-4 col-6 mb-3">
+                            <div class="card rounded-1 product" style="border: 1px solid #70ced9" data-id="{{ $product->id }}" data-price="{{ $product->discount_price ?? $product->price }}">
+                                <a href="{{ route('product.details', $product->slug)}}">
+                                    <img src="{{ $product->image }}" class="card-img-top" alt="..." style="height: 200px">
+                                </a>
+                                <div class="card-body">
+                                    <div class="card-title">{{ $product->product_name }}</div>
+                                    <div class="card-text">
+                                        @if ($product->discount_price)
+                                            <span class="text-info">{{ number_format($product->discount_price,2) }}</span>
+                                            <del class="text-danger">{{ number_format($product->price,2) }}</del>
+                                        @else
+                                            <span class="text-info">{{ number_format($product->price,2) }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="mt-2 text-center">
+                                        <button class="add-to-cart btn btn-info" data-id="{{ $product->id }}">Add to Cart</button>
+                                        <div class="btn-group me-2 card-buttons me-auto quantity-controls"  role="group" aria-label="First group" style="display: none;">
+                                            <button type="button" class="btn btn-info border btn-sm minus">&#9866;</button>
+                                            <button type="button" class="border-1" style="width: 100px; border: 1px solid #0dcaf0">
+                                                <span class="quantity">0</span>
+                                            </button>
+                                            <button type="button" class="btn btn-info border btn-sm plus">&#10010;</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
+                    @endforeach
+                    {!! $products->links('pagination::bootstrap-5') !!}
                 </div>
+
             </div>
         </div>
 

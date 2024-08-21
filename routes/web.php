@@ -79,3 +79,4 @@ Route::get('/cart', [CartController::class, 'getCart'])->name('cart.index');
 
 //shop product
 Route::get('shop', [ShopController::class,'index'])->name('shop.index');
+Route::get('category-product/{slug}', [ShopController::class,'categoryProduct'])->name('category.product');
