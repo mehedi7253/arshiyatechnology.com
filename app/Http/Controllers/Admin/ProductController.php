@@ -95,7 +95,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        
+        $page = "Update product";
+        $product = Product::find($id);
+        $categories = Category::whereNull('parent_id')->where('status', 'active')->get();
+        return view('admin.product.edit', compact('product', 'page', 'categories'));
     }
 
     /**
@@ -103,7 +106,43 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::find($id);
+        $product->product_name      = $request->product_name;
+        $product->short_description = $request->short_description;
+        $product->long_description  = $request->long_description;
+        $product->price             = $request->price;
+        $product->discount_price    = $request->discount_price;
+        $product->slug              = Str::slug($request->product_name);
+        $product->status           =   $request->status;
+
+        if ($request->hasFile('image')) {
+            deleteImage($product->image);
+            $image = saveImage($request->image, '/uploads/product/');
+        } else {
+            $image = $product->image;
+        }
+
+        $product->save();
+
+        if (!empty($request->category_id)) {
+            $product->categories()->attach($request->category_id);
+        }
+        if ($request->hasFile('sub_image')) {
+            foreach ($request->sub_image as $image) {
+                $location = '/uploads/product/';
+                $sub_image = saveImage($image, $location);
+                $productImage = new ProductImage();
+                $productImage->product_id = $product->id;
+                $productImage->sub_image = $sub_image;
+                $productImage->save();
+            }
+        }
+
+        $notification = [
+           'message' => 'New product added successfully',
+            'alert-type' =>'success',
+        ];
+        return redirect()->back()->with($notification);
     }
 
     /**

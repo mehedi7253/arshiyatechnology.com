@@ -49,7 +49,7 @@
         <div class="container d-flex justify-content-between align-items-center">
             <div class="logo">
                 <h1>
-                    <a href="index.html"> <img src="{{ siteSetting()->logo }}"></a>
+                    <a href="/"> <img src="{{ siteSetting()->logo }}"></a>
                 </h1>
             </div>
             <nav id="navbar" class="navbar">

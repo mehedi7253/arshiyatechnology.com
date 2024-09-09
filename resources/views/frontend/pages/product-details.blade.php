@@ -47,7 +47,7 @@
         <div class="container d-flex justify-content-between align-items-center">
             <div class="logo">
                 <h1>
-                    <a href="index.html"> <img src="{{ siteSetting()->logo }}"></a>
+                    <a href="/"> <img src="{{ siteSetting()->logo }}"></a>
                 </h1>
             </div>
             <nav id="navbar" class="navbar">
@@ -67,7 +67,7 @@
     <main id="main" class="product py-4">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-12" style="height: 347px; border: 1px solid rgba(0,40,100,.08); text-align: center">
+                <div class="col-md-5 col-sm-12" style="height: 347px; border: 1px solid rgba(0,40,100,.08); text-align: center; padding: 13px">
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper align-items-center">
                             @foreach ($product->productImage as $sub_image)
@@ -79,7 +79,7 @@
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>
-                <div class="col-md-8 col-sm-12 pr-5">
+                <div class="col-md-7 col-sm-12 pr-5">
                     <h1 style="font-size: 20px; font-weight: bold">{{ $product->product_name}}</h1>
                     <hr/>
                     <p>{!! $product->short_description !!}</p>
@@ -94,20 +94,24 @@
                     </p>
                     <div class="py-3" id="products">
                         <div class="input-group product" data-id="{{ $product->id }}">
-                            <button class="add-to-cart btn btn-info">Add to Cart</button>
-                            <div class="btn-group me-2 card-buttons me-auto quantity-controls"  role="group" aria-label="First group" style="display: none;">
-                                <button type="button" class="btn btn-info border btn-sm minus">&#9866;</button>
-                                <button type="button" class="border-1" style="width: 100px; border: 1px solid #0dcaf0">
-                                    <span class="quantity">0</span>
-                                </button>
-                                <button type="button" class="btn btn-info border btn-sm plus">&#10010;</button>
+                            <div class="col-md-4 col-sm-12">
+                                <button class="add-to-cart btn btn-info">Add to Cart</button>
+                                <div class="btn-group me-2 card-buttons me-auto quantity-controls"  role="group" aria-label="First group" style="display: none;">
+                                    <button type="button" class="btn btn-info border btn-sm minus">&#9866;</button>
+                                    <button type="button" class="border-1" style="width: 100px; border: 1px solid #0dcaf0">
+                                        <span class="quantity">0</span>
+                                    </button>
+                                    <button type="button" class="btn btn-info border btn-sm plus">&#10010;</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr />
-                <label>Product Description:</label>
-                <div class="col-md-12 col-sm-12">
+
+
+                <div class="col-md-12 col-sm-12 mt-5">
+                    <hr/>
+                    <label>Product Description:</label>
                     <p class="text-justify">{!! $product->long_description !!}</p>
                 </div>
             </div>
