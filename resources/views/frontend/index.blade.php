@@ -123,7 +123,9 @@
                                         <img src="{{ $product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0 p-2" style="height: 200px">
                                     </a>
                                     <div class="card-body">
-                                        <a href="{{ route('product.details', $product->slug) }}">{{ $product->product_name }}</a>
+                                        <a href="{{ route('product.details', $product->slug) }}" class="product_name">
+                                            {{ $product->product_name }}
+                                        </a>
                                         <br/>
                                         <div class="mt-2" style="text-align: center">
                                             @if ($product->discount_price == true)

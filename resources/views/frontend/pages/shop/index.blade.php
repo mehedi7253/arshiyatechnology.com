@@ -96,13 +96,18 @@
                         <div class="col-lg-4 col-6 mb-3">
                             <div class="card rounded-1 product" style="border: 1px solid #70ced9" data-id="{{ $product->id }}" data-price="{{ $product->discount_price ?? $product->price }}">
                                 <a href="{{ route('product.details', $product->slug)}}">
-                                    <img src="{{ $product->image }}" class="card-img-top" alt="..." style="height: 200px">
+                                    <img src="{{ $product->image }}" class="card-img-top" alt="..." style="height: 200px; padding: 15px">
                                 </a>
                                 <div class="card-body">
-                                    <div class="card-title">{{ $product->product_name }}</div>
-                                    <div class="card-text">
+                                    {{-- <a href="{{ route('product.details', $product->slug) }}" class="card-title product_name">
+                                        {{ $product->product_name }}
+                                    </a> --}}
+                                    <div href="{{ route('product.details', $product->slug)}}" class="card-title product_name">
+                                        {{ $product->product_name }}
+                                    </div>
+                                    <div class="card-text p-2 text-center">
                                         @if ($product->discount_price)
-                                            <span class="text-info">{{ number_format($product->discount_price,2) }}</span>
+                                            <span class="text-success">{{ number_format($product->discount_price,2) }}</span>
                                             <del class="text-danger">{{ number_format($product->price,2) }}</del>
                                         @else
                                             <span class="text-info">{{ number_format($product->price,2) }}</span>

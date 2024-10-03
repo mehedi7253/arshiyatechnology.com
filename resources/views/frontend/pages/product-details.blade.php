@@ -54,7 +54,7 @@
                 <ul>
                     <li><a class="active" href="/">Home</a></li>
                     <li><a href="/">About Us</a></li>
-                    <li><a href="/">Shop Now</a></li>
+                    <li><a href="{{ route('shop.index')}}">Shop Now</a></li>
                     <li><a href="/">Services</a></li>
                     <li><a href="/">Clients</a></li>
                     <li><a href="{{ route('cart.index')}}"><i class="bi bi-basket" style="font-size: 25px"></i><sup class="text-info" style="font-size: 15px"><span id="total_product">0</span></sup></a></li>
@@ -117,7 +117,7 @@
             </div>
         </div>
     </main>
-    <section class="all_products py-4" style="background-color: whitesmoke">
+    {{-- <section class="all_products py-4" style="background-color: whitesmoke">
         <div class="container">
         <h3>Releted Product</h3>
             <div class="swiper all_product_swiper">
@@ -155,7 +155,7 @@
                 <div class="swiper-pagination"></div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
 
