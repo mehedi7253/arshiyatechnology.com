@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Cart</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Check out</title>
     <meta content="{{ siteSetting()->meta_description }}" name="description">
     <meta content="{{ siteSetting()->keywords }}" name="keywords">
     <!-- Favicons -->

@@ -123,11 +123,10 @@
                                         <img src="{{ $product->image }}" class="img-thumbnail card-img-top p-0 rounded-1 border-0 p-2" style="height: 200px">
                                     </a>
                                     <div class="card-body">
-                                        <a href="{{ route('product.details', $product->slug) }}" class="product_name">
-                                            {{ $product->product_name }}
+                                        <a href="{{ route('product.details', $product->slug) }}" class="card-title product_name">
+                                            {!! substr($product->product_name, 0, 50) !!}..
                                         </a>
-                                        <br/>
-                                        <div class="mt-2" style="text-align: center">
+                                        <div class="p-2" style="text-align: center">
                                             @if ($product->discount_price == true)
                                                 <span class="text-success">{{ number_format($product->discount_price,2) }}</span>
                                                 <del class="text-danger">{{ number_format($product->price,2) }}</del>
@@ -135,14 +134,8 @@
                                                 <span class="text-success">{{ number_format($product->price,2) }}</span>
                                             @endif
                                         </div>
-                                        <div class="mt-2 text-center">
+                                        <div class=" text-center">
                                             <button class="add-to-cart btn btn-info">Add to Cart</button>
-                                            {{-- <div class="quantity-controls"  style="display: none;">
-                                                <button class="minus">-</button>
-                                                <span class="quantity">0</span>
-                                                <button class="plus">+</button>
-                                            </div> --}}
-
                                             <div class="btn-group me-2 card-buttons me-auto quantity-controls"  role="group" aria-label="First group" style="display: none;">
                                                 <button type="button" class="btn btn-info border btn-sm minus">&#9866;</button>
                                                 <button type="button" class="border-1" style="width: 100px; border: 1px solid #0dcaf0">
@@ -150,8 +143,6 @@
                                                 </button>
                                                 <button type="button" class="btn btn-info border btn-sm plus">&#10010;</button>
                                             </div>
-                                            {{-- <button class="btn btn-primary add-to-cart" data-id="{{ $product->id }}">Add to Cart</button> --}}
-                                            {{-- <a href="{{ route('product.details', $product->slug) }}" class="btn btn-sm btn-outline-info">View Details</a> --}}
                                         </div>
                                     </div>
                                 </div>
