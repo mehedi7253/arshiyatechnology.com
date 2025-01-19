@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutUs;
 use App\Models\Banner;
 use App\Models\Cart;
+use App\Models\Client;
 use App\Models\MissionVission;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -21,7 +22,8 @@ class PageController extends Controller
         $about_us = AboutUs::first();
         $products = Product::take(10)->get();
         $sfv = ServiceFacilitesValues::first();
-        return view('frontend.index', compact('banners','mission_vision', 'about_us','products','sfv'));
+        $clients = Client::where('status', 'active')->get();
+        return view('frontend.index', compact('banners','mission_vision', 'about_us','products','sfv', 'clients'));
     }
 
     public function productDetails($slug)

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Page\CartController;
 use App\Http\Controllers\Page\OrderController;
@@ -64,6 +65,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
 
     //category
     Route::resource('categories', CategoryController::class);
+    Route::resource('clients', ClientController::class);
 });
 
 

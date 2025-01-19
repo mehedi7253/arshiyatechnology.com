@@ -18,7 +18,10 @@
                         <a href="{{route('admin.mission-vision')}}" class="nk-menu-link"><span class="nk-menu-text">Mission Vision</span></a>
                     </li>
                     <li class="nk-menu-item">
-                        <a href="{{route('admin.get-service-FV')}}" class="nk-menu-link"><span class="nk-menu-text">Service Facilites & Values</span></a>
+                        <a href="{{route('admin.get-service-FV')}}" class="nk-menu-link"><span class="nk-menu-text">Service Facility & Values</span></a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.clients.index')}}" class="nk-menu-link"><span class="nk-menu-text">Client Setting</span></a>
                     </li>
                     <li class="nk-menu-item">
                         <a href="{{route('admin.email-setting.index')}}" class="nk-menu-link"><span class="nk-menu-text">Email Setting</span></a>
