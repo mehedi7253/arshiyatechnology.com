@@ -4,7 +4,7 @@
 
             <li class="nk-menu-item has-sub">
                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                    <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                    <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
                     <span class="nk-menu-text">Site Setting</span>
                 </a>
                 <ul class="nk-menu-sub">
@@ -30,7 +30,7 @@
             </li><!-- .nk-menu-item -->
             <li class="nk-menu-item has-sub">
                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                    <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                    <span class="nk-menu-icon"><em class="icon ni ni-img"></em></span>
                     <span class="nk-menu-text">Manage Banner</span>
                 </a>
                 <ul class="nk-menu-sub">
@@ -44,7 +44,7 @@
             </li>
             <li class="nk-menu-item has-sub">
                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                    <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                    <span class="nk-menu-icon"><em class="icon ni ni-list"></em></span>
                     <span class="nk-menu-text">Manage Category</span>
                 </a>
                 <ul class="nk-menu-sub">
@@ -58,7 +58,7 @@
             </li>
             <li class="nk-menu-item has-sub">
                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                    <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                    <span class="nk-menu-icon"><em class="icon ni ni-package"></em></span>
                     <span class="nk-menu-text">Manage Products</span>
                 </a>
                 <ul class="nk-menu-sub">
@@ -72,7 +72,7 @@
             </li>
             <li class="nk-menu-item has-sub">
                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                    <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb"></em></span>
+                    <span class="nk-menu-icon"><em class="icon ni ni-cart"></em></span>
                     <span class="nk-menu-text">Manage Order's</span>
                 </a>
                 <ul class="nk-menu-sub">
