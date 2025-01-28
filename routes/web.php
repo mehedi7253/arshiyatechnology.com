@@ -1,14 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\BannerController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Page\CartController;
-use App\Http\Controllers\Page\OrderController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Page\PageController;
-use App\Http\Controllers\Page\ShopController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,60 +18,35 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::name('page.')->middleware('mail-service')->group(function () {
+    Route::get('/', [PageController::class, 'index']);
+});
+
+
+require __DIR__ . '/user.php';
+require __DIR__ . '/admin.php';
 
 
 
 // front page routes
-Route::get('/', [PageController::class, 'index']);
-Route::get('/product-details/{slug}', [PageController::class, 'productDetails'])->name('product.details');
-Route::resource('/orders', OrderController::class);
-Route::get('orders',[OrderController::class, 'index'])->name('orders.index');
-Route::post('orders/store', [OrderController::class,'store'])->middleware('mail-service')->name('orders.store');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/product-details/{slug}', [PageController::class, 'productDetails'])->name('product.details');
+// Route::resource('/orders', OrderController::class);
+// Route::get('orders',[OrderController::class, 'index'])->name('orders.index');
+// Route::post('orders/store', [OrderController::class,'store'])->middleware('mail-service')->name('orders.store');
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
-    Route::get('/home',[AdminController::class, 'index'])->name('admin.home');
-    Route::get('site-settings', [AdminController::class, 'applicationSetting'])->name('site-settings');
-    Route::post('site-setting-update', [AdminController::class, 'updateApplicationSetting'])->name('settings-update');
-    Route::get('about-settings', [AdminController::class, 'aboutUs'])->name('about-settings');
-    Route::post('update-about',[AdminController::class, 'updateAboutUs'])->name('update-about');
+// // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    Route::get('mission-vision', [AdminController::class, 'missionVision'])->name('mission-vision');
-    Route::post('update-mission-vision',[AdminController::class, 'updateMissionVision'])->name('update-mission-vision');
-    Route::resource('banners', BannerController::class);
+// // Route::get('/products', [PageController::class, 'products'])->name('products.index');
+// // // Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
 
-    Route::get('sfv', [AdminController::class, 'getService'])->name('get-service-FV');
-    Route::post('update-service-facilities-values', [AdminController::class, 'updateSFV'])->name('update-service-facilities-values');
+// Route::post('/cart/add', [CartController::class, 'addToCart']);
+// Route::post('/cart/update', [CartController::class, 'updateCart']);
+// Route::post('/cart/remove', [CartController::class, 'removeCart']);
+// // Route::delete('/remove-item/{productId}', [PageController::class, 'removeItem'])->name('cart.remove');
+// Route::delete('/cart/remove{productId}', [CartController::class, 'removeProduct']);
+// Route::get('/cart', [CartController::class, 'getCart'])->name('cart.index');
 
-    Route::resource('products', ProductController::class);
-
-    //EMAIL SETTING ROUTE LIST ==========>
-    Route::get('email-setting', [AdminController::class, 'emailSettingIndex'])->name('email-setting.index');
-    Route::post('email-setting/update', [AdminController::class, 'emailSettingUpdate'])->name('email-setting.update');
-    Route::get('email-setting/test-mail', [AdminController::class, 'testMail'])->middleware('mail-service')->name('email-setting.test-mail');
-
-    //orders
-    Route::get('orders', [AdminController::class, 'allOrder'])->name('order.index');
-    Route::get('oder-details/{id}', [AdminController::class, 'orderDetails'])->name('order.details');
-    Route::get('/order/{id}/status/{status}', [AdminController::class, 'updateStatus'])->name('order.status');
-
-    //category
-    Route::resource('categories', CategoryController::class);
-    Route::resource('clients', ClientController::class);
-});
-
-
-// Route::get('/products', [PageController::class, 'products'])->name('products.index');
-// // Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
-
-Route::post('/cart/add', [CartController::class, 'addToCart']);
-Route::post('/cart/update', [CartController::class, 'updateCart']);
-Route::post('/cart/remove', [CartController::class, 'removeCart']);
-// Route::delete('/remove-item/{productId}', [PageController::class, 'removeItem'])->name('cart.remove');
-Route::delete('/cart/remove{productId}', [CartController::class, 'removeProduct']);
-Route::get('/cart', [CartController::class, 'getCart'])->name('cart.index');
-
-//shop product
-Route::get('shop', [ShopController::class,'index'])->name('shop.index');
-Route::get('category-product/{slug}', [ShopController::class,'categoryProduct'])->name('category.product');
+// //shop product
+// Route::get('shop', [ShopController::class,'index'])->name('shop.index');
+// Route::get('category-product/{slug}', [ShopController::class,'categoryProduct'])->name('category.product');
