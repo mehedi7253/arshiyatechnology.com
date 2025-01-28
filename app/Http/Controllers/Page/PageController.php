@@ -17,13 +17,16 @@ class PageController extends Controller
 {
     public function index()
     {
-        $banners = Banner::where('status', '0')->orderBy('id', 'DESC')->get();
-        $mission_vision = MissionVission::first();
-        $about_us = AboutUs::first();
-        $products = Product::take(10)->get();
-        $sfv = ServiceFacilitesValues::first();
-        $clients = Client::where('status', 'active')->get();
-        return view('frontend.index', compact('banners','mission_vision', 'about_us','products','sfv', 'clients'));
+        $data['banners'] = Banner::where('status', '0')->get();
+        return view('frontend.index', $data);
+
+        // $banners = Banner::where('status', '0')->orderBy('id', 'DESC')->get();
+        // $mission_vision = MissionVission::first();
+        // $about_us = AboutUs::first();
+        // $products = Product::take(10)->get();
+        // $sfv = ServiceFacilitesValues::first();
+        // $clients = Client::where('status', 'active')->get();
+        // return view('frontend.index', compact('banners','mission_vision', 'about_us','products','sfv', 'clients'));
     }
 
     public function productDetails($slug)
