@@ -30,6 +30,20 @@
             </li><!-- .nk-menu-item -->
             <li class="nk-menu-item has-sub">
                 <a href="#" class="nk-menu-link nk-menu-toggle">
+                    <span class="nk-menu-icon"><em class="icon ni ni-menu"></em></span>
+                    <span class="nk-menu-text">Menu Setting</span>
+                </a>
+                <ul class="nk-menu-sub">
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.menus.index')}}" class="nk-menu-link"><span class="nk-menu-text">Manage Menu</span></a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{route('admin.menus.create')}}" class="nk-menu-link"><span class="nk-menu-text">Add Menu</span></a>
+                    </li>
+                </ul><!-- .nk-menu-sub -->
+            </li>
+            <li class="nk-menu-item has-sub">
+                <a href="#" class="nk-menu-link nk-menu-toggle">
                     <span class="nk-menu-icon"><em class="icon ni ni-img"></em></span>
                     <span class="nk-menu-text">Manage Banner</span>
                 </a>

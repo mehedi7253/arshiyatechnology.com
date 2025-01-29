@@ -5,14 +5,7 @@
     <div class="row">
         <div class="col-xl-9 col-xxl-8 offset-lg-3 offset-xxl-2">
             <div class="intro-slider-container slider-container-ratio mb-2">
-                <div class="intro-slider owl-carousel owl-simple owl-nav-inside" data-toggle="owl" data-owl-options='{
-                        "nav": false,
-                        "dots": true,
-                        {{-- autoplay and loop 2second --}}
-                        "autoplay": true,
-                        "autoplayTimeout": 2000,
-                        "loop": true,
-                        }'>
+                <div class="intro-slider owl-carousel owl-simple owl-nav-inside" id="slider">
                     @forelse ($banners as $banner)
                         <div class="intro-slide">
                             <figure class="slide-image">
@@ -1382,3 +1375,15 @@
     </div><!-- End .row -->
 </div><!-- End .container-fluid -->
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#slider').owlCarousel({
+                loop: true,
+                items : 1,
+                autoplay: true,
+                autoplayTimeout: 3000,
+            });
+        });
+    </script>
+@endpush

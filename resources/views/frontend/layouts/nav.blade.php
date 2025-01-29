@@ -19,14 +19,14 @@
                     <span class="sr-only">Toggle mobile menu</span>
                     <i class="icon-bars"></i>
                 </button>
-                <a href="index.html" class="logo">
+                <a href="/" class="logo">
                     <img src="{{ $siteData->logo }}" alt="Molla Logo" width="57%" height="auto">
                 </a>
-            </div><!-- End .col-xl-3 col-xxl-2 -->
+            </div>
 
-            <div class="col col-lg-9 col-xl-9 col-xxl-10 header-middle-right">
+            <div class="col col-lg-9 col-xl-9 col-xxl-10 header-middle-right d-none d-lg-block">
                 <div class="row">
-                    <div class="col-lg-8 col-xxl-4-5col d-none d-lg-block">
+                    <div class="col-lg-8 col-xxl-4 ">
                         <div class="header-search header-search-extended header-search-visible header-search-no-radius">
                             <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
                             <form action="#" method="get">
@@ -37,8 +37,8 @@
                                     <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
                                 </div><!-- End .header-search-wrapper -->
                             </form>
-                        </div><!-- End .header-search -->
-                    </div><!-- End .col-xxl-4-5col -->
+                        </div>
+                    </div>
 
                     <div class="col-lg-4 col-xxl-5col d-flex justify-content-end align-items-center">
                         <div class="header-dropdown-link">
@@ -113,37 +113,66 @@
             <div class="col col-lg-6 col-xl-6 col-xxl-8 header-center">
                 <nav class="main-nav">
                     <ul class="menu sf-arrows">
-                        <li>
-                            <a href="#" class="sf-with-ul">Pages</a>
-
-                            <ul>
+                        @foreach ($getMenus as $menu)
+                            @if ($menu->children->count() > 0)
                                 <li>
-                                    <a href="about.html" class="sf-with-ul">About</a>
+                                    <a href="#" class="sf-with-ul text-capitalize">{{ $menu->name }}</a>
 
                                     <ul>
-                                        <li><a href="about.html">About 01</a></li>
-                                        <li><a href="about-2.html">About 02</a></li>
+                                        @foreach ($menu->children as $child)
+                                        <li>
+                                            <a href="{{ $child->url }}" class="text-capitalize">{{$child->name}}</a>
+                                        </li>
+                                        @endforeach
                                     </ul>
-                                </li>
-                                <li>
-                                    <a href="contact.html" class="sf-with-ul">Contact</a>
 
-                                    <ul>
-                                        <li><a href="contact.html">Contact 01</a></li>
-                                        <li><a href="contact-2.html">Contact 02</a></li>
-                                    </ul>
                                 </li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="faq.html">FAQs</a></li>
-                                <li><a href="404.html">Error 404</a></li>
-                                <li><a href="coming-soon.html">Coming Soon</a></li>
-                            </ul>
-                        </li>
+                            @else
+                                <li>
+                                    <a href="{{ $menu->url }}" class="text-capitalize">{{ $menu->name }}</a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </nav>
             </div>
             <div class="col col-lg-3 col-xl-3 col-xxl-2 header-right">
-                <i class="la la-lightbulb-o"></i><p>Clearance Up to 30% Off</span></p>
+                <nav class="main-nav">
+                    @auth
+                        @if (Auth::user()->type == '1')
+                            <ul class="menu sf-arrows">
+                                <li>
+                                    <a href="{{ route('user.dashboard') }}" class="sf-with-ul text-capitalize">{{ Auth::user()->name }}</a>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('logout') }}" class="sf-with-ul text-capitalize" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <ul>
+                        @else
+                        <ul class="menu sf-arrows">
+                            <li>
+                                <a href="{{ route('admin.dashboard') }}" class="sf-with-ul text-capitalize">{{ Auth::user()->name }}</a>
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('logout') }}" class="sf-with-ul text-capitalize" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <ul>
+                        @endif
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    @endauth
+                    @guest
+                    <ul class="menu sf-arrows">
+                        <li><a href="{{ route('login') }}" class="text-capitalize">Login</a></li>
+                        <li><a href="{{ route('register') }}" class="text-capitalize">Registration</a></li>
+                    </ul>
+                    @endguest
+                </nav>
             </div>
         </div>
     </div>

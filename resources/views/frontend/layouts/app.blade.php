@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+@php
+    $siteData = App\Models\SiteSetting::find(1);
+    $getMenus = App\Models\Menu::where('is_active', true)
+        ->whereNull('parent_id')
+        ->orderBy('order', 'ASC')
+        ->with('children')
+        ->get();
+@endphp
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="author" content="p-themes">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ $siteData->fav_icon }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ $siteData->fav_icon }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ $siteData->fav_icon }}">
-    <link rel="manifest" href="v">
-    <link rel="mask-icon" href="{{ $siteData->fav_icon }}" color="#666666">
-    <link rel="shortcut icon" href="{{ $siteData->fav_icon }}">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="{{ asset('frontend') }}/assets/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
+    <title>@yield('title', $siteData->name )</title>
+    <meta name="description" content="@yield('meta_description', $siteData->meta_description)">
+    <meta name="keywords" content="@yield('meta_keywords', $siteData->meta_keywords)">
+    <meta name="author" content="{{ $siteData->name }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="hostname" content="{{ $siteData->name }}">
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="3 days">
+    <meta name="language" content="English">
+    <meta name="rating" content="general">
+    <meta name="distribution" content="global">
+    <meta name="theme-color" content="#e65467">
+    <link rel="icon" type="image/png" href="{{ $siteData->favicon  }}">
+
+    {{-- for social platform --}}
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('meta_title', isset($siteData) ? $siteData->name : '')">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="@yield('meta_description', isset($siteData) ? $siteData->meta_description : '')">
+    <meta property="og:image" content="@yield('meta_image', '')">
+    <link rel="canonical" href="{{ url()->current() }} ">
 
     @include('frontend.layouts.header')
 </head>
