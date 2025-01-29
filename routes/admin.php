@@ -23,6 +23,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'user-access:admin',
     Route::post('update-service-facilities-values', [AdminController::class, 'updateSFV'])->name('update-service-facilities-values');
 
     Route::resource('products', ProductController::class);
+    Route::get('products/{product}/gallery/{galleryImage}', [ProductController::class, 'galleryImageDelete'])->name('products.gallery.delete');
 
     //EMAIL SETTING ROUTE LIST ==========>
     Route::get('email-setting', [AdminController::class, 'emailSettingIndex'])->name('email-setting.index');

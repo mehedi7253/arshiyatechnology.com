@@ -27,5 +27,7 @@
 
     <link rel="stylesheet" href="{{ asset('backend/assets/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
 
+    @stack('style')
 </head>

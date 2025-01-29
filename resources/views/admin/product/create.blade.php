@@ -13,19 +13,25 @@
                 <form action="{{ route('admin.products.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="form-group col-md-12">
-                            <label>Product Name <sup class="text-danger font-weight-bold">*</sup></label>
-                            <input type="text" name="product_name" placeholder="Enter product name" class="form-control @error('product_name') is-invalid @enderror" value="{{old('product_name')}}">
-                            @error('product_name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <div class="col-md-6 form-group">
+                            <label for="name">Product Name <sup class="text-danger">*</sup></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Enter Product Name" value="{{ old('name') }}">
+                            @error('name')<span class="invalid-feedback" role="alert"><label style="color: red">{{ $message }}</label></span>@enderror
                         </div>
-
-                        <div class="form-group col-md-12">
-                            <label for="category_id">Category<span class="text-danger">*</span></label>
-                            <select class="form-control select2 @error('category_id') is-invalid @enderror" name="category_id[]" multiple="multiple" id="category_id" data-placeholder="Choose ...">
+                        <div class="col-md-6 form-group">
+                            <label for="slug">Product Url <sup class="text-danger">*</sup></label>
+                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Enter Product Url" value="{{ old('slug') }}">
+                            @error('slug')<span class="invalid-feedback" role="alert"><label style="color: red">{{ $message }}</label></span>@enderror
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="sku">Product Sku <sup class="text-danger">*</sup></label>
+                            <input type="text" class="form-control @error('sku') is-invalid @enderror" id="sku" name="sku"  placeholder="Enter Product Sku" value="{{ old('sku') }}">
+                            @error('sku')<span class="invalid-feedback" role="alert"><label style="color: red">{{ $message }}</label></span>@enderror
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="category_id">Category <sup class="text-danger">*</sup></label>
+                            <select class="form-control @error('category_id') is-invalid @enderror" name="category_id[]" id="category_id">
+                                <option disabled selected>--Select Category--</option>
                                 @foreach ($categories as $mainCategory)
                                     <optgroup label="{{ $mainCategory->category_name }}">
                                         @foreach ($mainCategory->childCategories as $childCategory)
@@ -36,112 +42,144 @@
                                     </optgroup>
                                 @endforeach
                             </select>
-                            @error('category_id')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Price <sup class="text-danger font-weight-bold">*</sup></label>
-                            <input type="text" name="price" placeholder="Enter price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price')}}">
-                            @error('price')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Discount Price </label>
-                            <input type="text" name="discount_price" placeholder="Enter discount price" class="form-control @error('discount_price') is-invalid @enderror" value="{{ old('discount_price')}}">
-                            @error('discount_price')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Image <sup class="text-danger font-weight-bold">*</sup></label>
-                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
-                            @error('image')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Sub Image </label>
-                            <input type="file" name="sub_image[]" multiple class="form-control @error('sub_image') is-invalid @enderror">
-                            @error('sub_image')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Status <sup class="text-danger font-weight-bold">*</sup></label>
-                            <select name="status" class="form-control @error('status') is-invalid @enderror">
-                                <option value="active" selected>Active</option>
-                                <option value="in-active">In-Active</option>
-                            </select>
-                            @error('status')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Pack Size</label>
-                            <input type="text" name="others" class="form-control @error('others') is-invalid @enderror">
-                            @error('others')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label>Short Description </label>
-                            <textarea name="short_description" id="short_description" class="form-control @error('short_description') is-invalid @enderror">{{ old('short_description')}}</textarea>
-                            @error('short_description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label>Description </label>
-                            <textarea name="long_description" id="long_description" class="form-control @error('long_description') is-invalid @enderror">{{ old('long_description')}}</textarea>
-                            @error('long_description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="submit" class="btn btn-info" value="Submit">
-                        </div>
+                            @error('category_id')<span class="invalid-feedback" role="alert"><label style="color: red">{{ $message }}</label></span>@enderror
 
+                        </div>
+                        {{-- <div class="col-md-6 form-group">
+                            <label for="colors">Colors <sup class="text-danger">*</sup></label>
+                            <input class="form-control" type="text" data-role="tagsinput" name="colors">
+                        </div> --}}
+                        <div class="col-md-6 form-group">
+                            <label for="regular_price">Regular Price <sup class="text-danger">*</sup></label>
+                            <input type="text" class="form-control @error('regular_price') is-invalid @enderror" id="regular_price" name="regular_price" placeholder="Enter Product Price" value="{{ old('regular_price') }}">
+                            @error('regular_price')<span class="invalid-feedback" role="alert"><label style="color: red">{{ $message }}</label></span>@enderror
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="discount_price">Discount Price</label>
+                            <input type="text" class="form-control" id="discount_price" name="discount_price" placeholder="Enter Product Price" value="{{ old('discount_price') }}">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="image">Gallery Image</label>
+                            <input name="gallery[]" id="inputMultiple" type="file" class="form-control @error('gallery') is-invalid @enderror"   multiple accept="image/*">
+                            @error('gallery')<span class="invalid-feedback" role="alert"><label style="color: red">{{ $message }}</label></span>@enderror
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <label for="thumbnail">Thumbnail <sup class="text-danger">*</sup></label>
+                            <input name="thumbnail" id="inputGroupFile04" type="file" class="form-control @error('thumbnail') is-invalid @enderror" accept="image/*">
+                        </div>
+                        <div class="col-md-1 form-group mt-5">
+                            <img id="inputGroupFileshow" src="{{ asset('uploads/not-found.jpg') }}" alt="" class="img-thumbnail">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div id="multipleImageShow"></div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <div class="menu-configs">
+                                <h4>Feature</h4>
+                                <label class="control-label">
+                                    <input name="is_featured" type="checkbox" value="1"  {{ old('is_featured') ? 'checked' : '' }}>
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <div class="menu-configs">
+                                <h4>Offers</h4>
+                                <label class="control-label">
+                                    <input name="is_offers" type="checkbox" value="1" {{ old('is_offers') ? 'checked' : '' }}>
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <div class="menu-configs">
+                                <h4>Stock Status</h4>
+                                <label class="control-label">
+                                    <input name="is_stock" type="checkbox" value="1" checked {{ old('is_stock') ? 'checked' : '' }}>
+                                    In Stock
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <div class="menu-configs">
+                                <h4>Status</h4>
+                                <label class="control-label">
+                                    <input name="is_active" type="checkbox" value="1" checked  {{ old('is_active') ? 'checked' : '' }}> Active
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="colors">Meta Tag </label>
+                            <input class="form-control" type="text" data-role="tagsinput" name="tags"  placeholder="Enter Meta Tag" value="{{ old('tags') }}">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="description">Description <sup class="text-danger">*</sup></label>
+                            <textarea name="description" id="description" class="text-control @error('description') is-invalid @enderror" placeholder="Enter Description">{{ old('description') }}</textarea>
+                            @error('description')<span class="invalid-feedback" role="alert"><label style="color: red">{{ $message }}</label></span>@enderror
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     @endsection
 
+    @push('style')
+    <style>
+        .bootstrap-tagsinput .tag {
+        margin-right: 2px;
+        color: #ffffff;
+        background: #57c3cd;
+        padding: 3px 7px;
+        border-radius: 3px;
+    }
+
+    .bootstrap-tagsinput {
+        width: 100%;
+    }
+    </style>
+    @endpush
     @push('scripts')
         <script>
             $(".select2").select2();
              $(document).ready(function() {
-                $('#short_description').summernote({
+                $('#description').summernote({
                     placeholder: 'Enter Short Description',
                     tabsize: 2,
                     height: 200
                 });
+
             });
+
+            document.getElementById('name').addEventListener('input', createUrl);
+            function createUrl() {
+                const title = document.getElementById('name').value.toLowerCase().trim();
+                const slug = title.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+                document.getElementById('slug').value = slug;
+            }
+
+             // Live Image Preview
             $(document).ready(function() {
-                $('#long_description').summernote({
-                    placeholder: 'Enter Long Description',
-                    tabsize: 2,
-                    height: 300
+                $('#inputGroupFile04').change(function() {
+                    let file_url = URL.createObjectURL(event.target.files[0]);
+                    $('#inputGroupFileshow').attr('src', file_url);
+                });
+            });
+
+            // Live Multiple Image Preview
+            $(document).ready(function() {
+                $('#inputMultiple').change(function() {
+                    $('#multipleImageShow').empty();
+                    let total_file = document.getElementById("inputMultiple").files.length;
+                    for (let i = 0; i < total_file; i++) {
+                        $('#multipleImageShow').append(
+                            "<img style=''width=100px'' class='mx-2 my-4 img-thumbnail' src='" + URL
+                            .createObjectURL(event
+                                .target.files[
+                                    i]) + "'>");
+                    }
                 });
             });
         </script>

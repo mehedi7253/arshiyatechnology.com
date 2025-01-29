@@ -9,6 +9,8 @@
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="{{ asset('backend/assets/select2/js/select2.full.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+
 <script type="text/javascript">
     @if (Session::has('message'))
         var type = "{{ Session::get('alert-type', 'info') }}"
