@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::name('page.')->middleware('mail-service')->group(function () {
     Route::get('/', [PageController::class, 'index']);
+    Route::get('all-products', [PageController::class, 'allProduct'])->name('all-product');
 });
 
 

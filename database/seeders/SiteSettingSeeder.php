@@ -15,8 +15,8 @@ class SiteSettingSeeder extends Seeder
     {
         DB::table('site_settings')->insert([
             [
-                'name' => 'Site name',
-                'email' => 'site@example.com',
+                'name' => 'Arshiya Technology',
+                'email' => 'info@arshiyatechnology.com',
                 'phone' => '010xxxxxxx',
                 'logo'  => 'demo/setting/logo.png',
                 'favicon'  => 'demo/setting/icon.png',

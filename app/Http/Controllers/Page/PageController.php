@@ -19,17 +19,20 @@ class PageController extends Controller
     {
         $data['banners'] = Banner::where('status', '0')->get();
         $data['clients'] = Client::where('status', 'active')->take(15)->get();
+        $data['products'] = Product::where('is_active', true)->get();
+        $data['allProducts'] = Product::where('is_active', true)->orderBy('id', 'desc')->take('12')->get();
         return view('frontend.index', $data);
-
-        // $banners = Banner::where('status', '0')->orderBy('id', 'DESC')->get();
-        // $mission_vision = MissionVission::first();
-        // $about_us = AboutUs::first();
-        // $products = Product::take(10)->get();
-        // $sfv = ServiceFacilitesValues::first();
-        // $clients = Client::where('status', 'active')->get();
-        // return view('frontend.index', compact('banners','mission_vision', 'about_us','products','sfv', 'clients'));
     }
 
+    public function allProduct(Request $request)
+    {
+        $allProducts = Product::paginate(10);
+        if ($request->ajax()) {
+            $view = view('frontend.pages.load-more', compact('allProducts'))->render();
+            return response()->json(['html' => $view]);
+        }
+        return view('allProducts', compact('allProducts'));
+    }
     public function productDetails($slug)
     {
         // $product = Product::where('slug', $slug)->first();

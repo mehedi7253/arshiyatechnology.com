@@ -95,6 +95,11 @@
                     </li>
                 </ul><!-- .nk-menu-sub -->
             </li>
+            <li>
+                <a href="/" target="_blank" class="nk-menu-link"><span class="nk-menu-icon"><em class="icon ni ni-b-chrome"></em></span>
+                    <span class="nk-menu-text">Browse Site</span>
+                </a>
+            </li>
         </ul><!-- .nk-menu -->
     </div><!-- .nk-sidebar-menu -->
 </div>

@@ -25,7 +25,7 @@
     margin-bottom:1rem
 }
 .intro-slider-container:before,.intro-slider .slide-image:before{
-    padding-top:42.3728813559%
+    padding-top: 300px;
 }
 @media screen and (max-width: 479px){
     .intro-slider-container:before,.intro-slider .slide-image:before{
@@ -350,12 +350,16 @@
     margin-bottom:1.1rem
 }
 .old-price{
-    text-decoration:none
+    color: red;
+    text-decoration: line-through;
 }
 .product-title{
-    color:#666;
-    font-size:1.4rem;
-    margin-bottom:.3rem
+    height: 50px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #1d2a38;
+    font-weight: 700;
+    line-height: 25px;
 }
 .ratings-text{
     margin-left:.5rem

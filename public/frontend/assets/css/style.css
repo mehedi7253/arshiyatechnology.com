@@ -1742,7 +1742,7 @@ blockquote.text-white cite span{
     background-color:#a6c76c
 }
 .tip.tip-hot{
-    background-color:#ef837b
+    background-color:#32b1d6
 }
 .header-bottom .main-nav{
     margin-left:0
@@ -5783,9 +5783,10 @@ p{
 .product-media{
     position:relative;
     display:block;
-    background-color:#d7d7d7;
+    /* background-color:#d7d7d7; */
     margin-bottom:0;
-    overflow:hidden
+    overflow:hidden;
+    height: 200px;
 }
 .product-media>a{
     display:block
@@ -5858,7 +5859,7 @@ p{
 }
 .product-countdown .countdown-amount{
     display:inline-block;
-    color:#ef837b;
+    color:#32b1d6;
     font-weight:500;
     font-size:1.8rem;
     letter-spacing:-.03em;
@@ -5959,12 +5960,11 @@ p{
     margin-bottom:1.3rem
 }
 .new-price{
-    color:#ef837b;
-    margin-right:.8rem
+    color:#32b1d6;
 }
 .old-price{
-    color:#cccccc;
-    text-decoration:line-through
+    color: red;
+    text-decoration: line-through;
 }
 .out-price{
     color:#cccccc
@@ -5995,7 +5995,7 @@ p{
 }
 .product-label.label-sale{
     color:#fff;
-    background-color:#ef837b
+    background-color:#32b1d6
 }
 .product-label.label-new{
     color:#fff;
@@ -6886,7 +6886,7 @@ p{
 }
 .product.product-10 .product-label.label-deal{
     color:#fff;
-    background-color:#ef837b;
+    background-color:#32b1d6;
     padding:.5rem 2rem;
     left:0;
     box-shadow:0 5px 10px rgba(34,34,34,0.2)
@@ -12650,7 +12650,7 @@ button:focus{
     color:#a6c76c
 }
 .out-of-stock{
-    color:#ef837b
+    color:#32b1d6
 }
 .btn-remove{
     display:inline-flex;

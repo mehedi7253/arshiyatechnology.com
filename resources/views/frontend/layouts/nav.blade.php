@@ -145,6 +145,9 @@
                                     <a href="{{ route('user.dashboard') }}" class="sf-with-ul text-capitalize">{{ Auth::user()->name }}</a>
                                     <ul>
                                         <li>
+                                            <a href="{{ route('user.dashboard') }}">profile</a>
+                                        </li>
+                                        <li>
                                             <a href="{{ route('logout') }}" class="sf-with-ul text-capitalize" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                         </li>
                                     </ul>
@@ -155,6 +158,9 @@
                             <li>
                                 <a href="{{ route('admin.dashboard') }}" class="sf-with-ul text-capitalize">{{ Auth::user()->name }}</a>
                                 <ul>
+                                    <li>
+                                        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}" class="sf-with-ul text-capitalize" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                     </li>
