@@ -32,7 +32,7 @@
                                     {{ $menu->parent_id ? $menu->parent->name : 'Parent' }}
                                 </td>
                                 <td>
-                                    <span class="badge-item {{ $menu->is_active ? 'badge-status' : 'badge-error' }}">{{ $menu->is_active ? 'Active' : 'Inactive' }}</span>
+                                    <span class="badge {{ $menu->is_active ? 'badge-success' : 'badge-danger' }}">{{ $menu->is_active ? 'Active' : 'Inactive' }}</span>
                                 </td>
                                 <td>{{ $menu->order }}</td>
                                 <td>

@@ -18,6 +18,7 @@ class PageController extends Controller
     public function index()
     {
         $data['banners'] = Banner::where('status', '0')->get();
+        $data['clients'] = Client::where('status', 'active')->take(15)->get();
         return view('frontend.index', $data);
 
         // $banners = Banner::where('status', '0')->orderBy('id', 'DESC')->get();
@@ -31,10 +32,10 @@ class PageController extends Controller
 
     public function productDetails($slug)
     {
-        $product = Product::where('slug', $slug)->first();
-        $product_image = ProductImage::where('product_id', $product->id)->get();
-        $all_product = Product::take('10')->get();
-        return view('frontend.pages.product-details', compact('product','product_image','all_product'));
+        // $product = Product::where('slug', $slug)->first();
+        // $product_image = ProductImage::where('product_id', $product->id)->get();
+        // $all_product = Product::take('10')->get();
+        // return view('frontend.pages.product-details', compact('product','product_image','all_product'));
     }
 
     public function addToCart(Request $request)

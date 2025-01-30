@@ -8768,14 +8768,26 @@ button:focus{
     text-indent:-.2rem
 }
 .brand{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:48px
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    height: 100px;
 }
-.brand img{
+/* .brand img{
     width:auto !important;
     max-width:100% !important
+} */
+
+.brand img{
+    opacity: 0.5;
+    transition: 0.3s;
+    filter: grayscale(100);
+    cursor: pointer;
+}
+.brand img:hover{
+    opacity: 1;
+    filter: grayscale(0);
 }
 .brand:focus{
     outline:none !important
@@ -15489,4 +15501,9 @@ button:focus{
     content:'\f7e3'
 }
 /*# sourceMappingURL=style.css.map */
- 
+
+/* custom css */
+.section-title-heading{
+    text-align: center;
+    color: #32b1d6;
+}

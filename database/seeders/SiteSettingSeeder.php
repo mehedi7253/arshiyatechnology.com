@@ -18,8 +18,8 @@ class SiteSettingSeeder extends Seeder
                 'name' => 'Site name',
                 'email' => 'site@example.com',
                 'phone' => '010xxxxxxx',
-                'logo'  => 'uploads/images/logo.png',
-                'favicon'  => 'uploads/images/favicon.png',
+                'logo'  => 'demo/setting/logo.png',
+                'favicon'  => 'demo/setting/icon.png',
                 'created_at' => now()
             ]
         ]);

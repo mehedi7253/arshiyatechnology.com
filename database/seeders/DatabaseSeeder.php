@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
             MissionVissionSeeder::class,
             EmailSeeder::class,
             ClientSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            BannerSeeder::class,
+            MenuSeeder::class,
         ]);
     }
 }
