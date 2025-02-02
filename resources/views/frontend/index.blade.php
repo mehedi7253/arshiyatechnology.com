@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
-<div class="mb-lg-2"></div>
-<div class="container-fluid">
+<div class="mb-lg-1"></div>
+<div class="container-fluid bg-light">
     <div class="row">
         <div class="col-xl-9 col-xxl-8 offset-lg-3 offset-xxl-2">
             <div class="intro-slider-container slider-container-ratio mb-2">
@@ -145,7 +145,7 @@
                         items: 7
                     },
                     600: {
-                        items: 3
+                        items: 2
                     },
                     320: {
                         items: 2
@@ -167,10 +167,10 @@
                         items: 5
                     },
                     600: {
-                        items: 3
+                        items: 2
                     },
                     320: {
-                        items: 3
+                        items: 2
                     }
                 }
             });

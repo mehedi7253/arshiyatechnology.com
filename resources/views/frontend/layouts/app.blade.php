@@ -7,6 +7,13 @@
         ->orderBy('order', 'ASC')
         ->with('children')
         ->get();
+    $footer_url = App\Models\Menu::where('is_active', true)
+                ->where('is_active', true)
+                ->orderBy('order', 'ASC')
+                ->take('5')
+                ->get();
+    $service  = App\Models\ServiceFacilitesValues::first();
+    $getCategories = App\Models\Category::where('status', 'active')->whereNull('parent_id')->latest()->take(5)->get();
 @endphp
 <head>
     <meta charset="utf-8">

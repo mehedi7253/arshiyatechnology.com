@@ -25,7 +25,7 @@ class ProductFactory extends Factory
             'thumbnail'      => '/demo/' . $this->faker->numberBetween(4, 5) . '.webp',
             'gallery'        => json_encode(['/demo/1.jpg', '/demo/2.jpg', '/demo/3.jpg']),
             'regular_price'  => $this->faker->randomFloat(2, 500, 1000),
-            'discount_price' => $this->faker->randomFloat(2, 100, 500),
+            'discount_price' => $this->faker->randomFloat(2, 100, 400),
             'description'    => $this->faker->paragraph(),
             'is_stock'       => $this->faker->boolean(),
             'is_featured'    => $this->faker->boolean(),

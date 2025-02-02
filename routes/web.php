@@ -19,8 +19,13 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::name('page.')->middleware('mail-service')->group(function () {
-    Route::get('/', [PageController::class, 'index']);
+    Route::get('/', [PageController::class, 'index'])->name('welcome');
     Route::get('all-products', [PageController::class, 'allProduct'])->name('all-product');
+
+    //category wise products
+    Route::get('category/{slug}', [PageController::class, 'categoryProduct'])->name('category.product');
+    Route::get('shop/{slug}', [PageController::class, 'categoryProduct'])->name('shop-products');
+    Route::get('product/{slug}', [PageController::class, 'productDetails'])->name('product.details');
 });
 
 

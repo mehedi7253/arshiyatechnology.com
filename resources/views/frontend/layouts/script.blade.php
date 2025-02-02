@@ -11,5 +11,6 @@
 <!-- Main JS File -->
 <script src="{{ asset('frontend') }}/assets/js/main.js"></script>
 <script src="{{ asset('frontend') }}/assets/js/demos/demo-14.js"></script>
+<script src="{{ asset('frontend') }}/assets/js/jquery.elevateZoom.min.js"></script>
 
 @stack('scripts')

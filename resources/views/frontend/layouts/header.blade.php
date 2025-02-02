@@ -8,5 +8,6 @@
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/style.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/skins/skin-demo-14.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/demos/demo-14.css">
+<link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/plugins/nouislider/nouislider.css">
 
 @stack('style')

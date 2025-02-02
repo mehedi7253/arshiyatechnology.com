@@ -1,15 +1,20 @@
 
 <div class="header-top">
-    <div class="container">
+    <div class="container-fluid">
         <div class="header-left">
-            <a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a>
-        </div><!-- End .header-left -->
+            <a href="tel:#"><i class="icon-phone"></i>Call: {{ $siteData->phone }}</a>
+        </div>
+
 
         <div class="header-right">
-          social icon
-        </div><!-- End .header-right -->
-    </div><!-- End .container -->
-</div><!-- End .header-top -->
+            <div class="social-icons social-icons-color">
+                <a href="{{ $siteData->facebook }}" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f" style="color: white"></i></a>
+                <a href="{{ $siteData->twitter }}" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter" style="color: white"></i></a>
+                <a href="{{ $siteData->linkedin }}" class="social-icon social-linkedin" title="Linkedin" target="_blank"><i class="icon-linkedin" style="color: white"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="header-middle">
     <div class="container-fluid">
@@ -42,6 +47,54 @@
 
                     <div class="col-lg-4 col-xxl-5col d-flex justify-content-end align-items-center">
                         <div class="header-dropdown-link">
+                            <div class="dropdown compare-dropdown">
+                                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
+                                    <i class="icon-user"></i>
+                                    @auth
+                                        <span class="compare-txt">{{ Auth::user()->name }}</span>
+                                    @else
+                                        <span class="compare-txt">Login/SignUp</span>
+                                    @endauth
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="compare-products">
+                                        @auth
+                                            @if (Auth::user()->type == '1')
+                                                <li class="compare-product">
+                                                    <h6 class="compare-product-title"><a href="{{ route('user.dashboard') }}"><i class="icon-home"></i> Dashboard</a></h6>
+                                                </li>
+
+                                                <li class="compare-product">
+                                                    <h6 class="compare-product-title"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-sign-out"></i> Logout</a></h6>
+                                                </li>
+                                            @else
+                                                <li class="compare-product">
+                                                    <h6 class="compare-product-title"><a href="{{ route('admin.dashboard') }}"><i class="icon-home"></i> Dashboard</a></h6>
+                                                </li>
+
+                                                <li class="compare-product">
+                                                    <h6 class="compare-product-title"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-sign-out"></i> Logout</a></h6>
+                                                </li>
+                                            @endif
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        @endauth
+                                    </ul>
+                                    @guest
+                                    <ul class="compare-products">
+                                        <li class="compare-product">
+                                            <a href="{{ route('login') }}" class="text-capitalize">Login</a>
+                                        </li>
+                                        <li class="compare-product">
+                                            <a href="{{ route('register') }}" class="text-capitalize">Registration</a>
+                                        </li>
+                                    </ul>
+                                    @endguest
+                                </div><!-- End .dropdown-menu -->
+                            </div><!-- End .compare-dropdown -->
+
 
                             <a href="wishlist.html" class="wishlist-link">
                                 <i class="icon-heart-o"></i>
@@ -72,7 +125,12 @@
                     <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
                         Browse Categories
                     </a>
-                    <div class="dropdown-menu show">
+
+                    @if (Route::currentRouteName() == 'page.welcome')
+                        <div class="dropdown-menu show">
+                        @else
+                        <div class="dropdown-menu">
+                    @endif
                         @php
                             $categories = App\Models\Category::where('parent_id', null)->where('status', 'active')->get();
                         @endphp
@@ -90,7 +148,7 @@
                                                                 <div class="col-md-6">
                                                                     <ul>
                                                                         @foreach ($category->childCategories as $childCategory)
-                                                                            <li><a href="{{ $childCategory->slug }}">{{ $childCategory->category_name }}</a></li>
+                                                                            <li><a href="{{ route('page.category.product', $childCategory->slug) }}">{{ $childCategory->category_name }}</a></li>
                                                                         @endforeach
                                                                     </ul>
                                                                 </div>
@@ -138,46 +196,7 @@
             </div>
             <div class="col col-lg-3 col-xl-3 col-xxl-2 header-right">
                 <nav class="main-nav">
-                    @auth
-                        @if (Auth::user()->type == '1')
-                            <ul class="menu sf-arrows">
-                                <li>
-                                    <a href="{{ route('user.dashboard') }}" class="sf-with-ul text-capitalize">{{ Auth::user()->name }}</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ route('user.dashboard') }}">profile</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('logout') }}" class="sf-with-ul text-capitalize" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            <ul>
-                        @else
-                        <ul class="menu sf-arrows">
-                            <li>
-                                <a href="{{ route('admin.dashboard') }}" class="sf-with-ul text-capitalize">{{ Auth::user()->name }}</a>
-                                <ul>
-                                    <li>
-                                        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('logout') }}" class="sf-with-ul text-capitalize" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        <ul>
-                        @endif
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    @endauth
-                    @guest
-                    <ul class="menu sf-arrows">
-                        <li><a href="{{ route('login') }}" class="text-capitalize">Login</a></li>
-                        <li><a href="{{ route('register') }}" class="text-capitalize">Registration</a></li>
-                    </ul>
-                    @endguest
+                  <a href="" class="btn btn-info" style="height: 4rem; border-radius: 10rem">Special Offer</a>
                 </nav>
             </div>
         </div>

@@ -5,7 +5,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-5 cta-txt">
                         <h3 class="cta-title text-primary">Join Our Newsletter</h3><!-- End .cta-title -->
-                        <p class="cta-desc text-light">Subcribe to get information about products and coupons</p><!-- End .cta-desc -->
+                        <p class="cta-desc text-light">Subscribe to get information about products and coupons</p><!-- End .cta-desc -->
                     </div><!-- End .col-lg-5 -->
 
                     <div class="col-lg-7">
@@ -23,58 +23,56 @@
         </div><!-- End .row -->
     </div><!-- End .container-fluid -->
 </div><!-- End .cta -->
-<div class="footer-middle border-0">
+<div class="footer-middle border-0 bg-light">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-4 col-12">
+            <div class="col-lg-3 col-12">
                 <div class="widget widget-about">
-                    <img src="{{ asset('frontend') }}/assets/images/demos/demo-14/logo-footer.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-                    <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. </p>
-                </div><!-- End .widget about-widget -->
-            </div><!-- End .col-sm-12 col-lg-4 -->
+                    <img src="{{ $siteData->logo }}" class="footer-logo" alt="Footer Logo" style="width: 60%">
+                    <p class="text-justify" style="width: 100%; word-wrap: break-word;">{!! $siteData->meta_description !!}</p>
+                </div>
+            </div>
 
-            <div class="col-lg-4 col-6">
+            <div class="col-lg-3 col-6">
                 <div class="widget">
-                    <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
-
+                    <h4 class="widget-title">Useful Links</h4>
                     <ul class="widget-list">
-                        <li><a href="about.html">About Molla</a></li>
-                        <li><a href="#">How to shop on Molla</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="contact.html">Contact us</a></li>
-                        <li><a href="login.html">Log in</a></li>
-                    </ul><!-- End .widget-list -->
-                </div><!-- End .widget -->
-            </div><!-- End .col-sm-4 col-lg-2 -->
-
-
-            <div class="col-lg-4 col-6">
+                        @foreach ($footer_url as $link)
+                            <li><a href="">{{ $link->name }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
                 <div class="widget">
-                    <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
-
+                    <h4 class="widget-title">Our Service's</h4>
+                    <p>{!! substr($service->services, 0, 150) !!}</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="widget">
+                    <h4 class="widget-title">My Account</h4>
                     <ul class="widget-list">
-                        <li><a href="#">Sign In</a></li>
+                        <li><a href="{{ route('login') }}">Sign In</a></li>
                         <li><a href="cart.html">View Cart</a></li>
                         <li><a href="#">My Wishlist</a></li>
-                        <li><a href="#">Track My Order</a></li>
-                        <li><a href="#">Help</a></li>
-                    </ul><!-- End .widget-list -->
-                </div><!-- End .widget -->
-            </div><!-- End .col-sm-4 col-lg-2 -->
+                    </ul>
+                </div>
+            </div>
         </div><!-- End .row -->
     </div><!-- End .container-fluid -->
 </div><!-- End .footer-middle -->
 
-<div class="footer-bottom">
+<div class="footer-bottom bg-light">
     <div class="container-fluid">
-        <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+        <p class="footer-copyright">{{ $siteData->copyright }}
+            <br/>
+        </p>
         <div class="social-icons social-icons-color">
-            <span class="social-label">Social Media</span>
+            <a href="https://github.com/mehedi7253/" target="_blank">Developed by Md.Mehedi Hasan</a>
+            {{-- <span class="social-label">Social Media</span>
             <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-            <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-            <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-            <a href="#" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
-            <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+            <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a> --}}
         </div><!-- End .soial-icons -->
     </div><!-- End .container-fluid -->
 </div><!-- End .footer-bottom -->
