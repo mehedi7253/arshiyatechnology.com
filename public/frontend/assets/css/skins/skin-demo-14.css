@@ -851,12 +851,15 @@ a:hover,a:focus{
     color:#70ced9
 }
 .product-details-action .btn-cart{
-    color:#70ced9;
+    color: white;
     border-color:#70ced9
 }
 .product-details-action .btn-cart:hover,.product-details-action .btn-cart:focus{
-    border-color:#70ced9;
-    background-color:#70ced9
+    /* border-color:#70ced9;
+    background-color:#70ced9 */
+    border-color: #70ced9;
+    background-color: black;
+    color: white;
 }
 .product-details-tab .nav.nav-pills .nav-link:hover,.product-details-tab .nav.nav-pills .nav-link:focus{
     color:#70ced9;

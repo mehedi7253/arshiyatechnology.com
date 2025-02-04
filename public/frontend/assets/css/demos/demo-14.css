@@ -316,7 +316,8 @@
     text-transform:uppercase;
     border-radius:.2rem;
     border:0.1rem solid #70ced9;
-    background-color:#70ced9
+    background-color:#70ced9;
+    width: 23rem;
 }
 .btn-product:before{
     margin-right:.6rem

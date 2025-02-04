@@ -39,28 +39,33 @@
                     <div class="product-details">
                         <h1 class="product-title">{{ $product->name }}</h1>
                         <div class="product-price">
-                            $70.00
+                            {{ $product->regular_price }}
                         </div>
 
                         <div class="product-content">
-                            <p></p>
+                            <p class="text-justify">
+                                {{-- 300 length --}}
+                               {{ substr(strip_tags($product->description), 0, 400)}}
+                            </p>
                         </div>
 
-                        <div class="details-filter-row details-row-size">
-                            <label for="qty">Qty:</label>
-                            <div class="product-details-quantity">
-                                <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                            </div><!-- End .product-details-quantity -->
-                        </div><!-- End .details-filter-row -->
+                        <form action="{{route('page.add-to-cart')}}" method="POST">
+                            @csrf
+                            <div class="details-filter-row details-row-size">
+                                <label for="qty">Qty:</label>
+                                <div class="product-details-quantity">
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="number" id="qty" name="quantity" class="form-control" value="1" min="1" step="1" data-decimals="0" required>
+                                </div>
+                            </div>
 
-                        <div class="product-details-action">
-                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-
-                            <div class="details-action-wrapper">
-                                <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
-                            </div><!-- End .details-action-wrapper -->
-                        </div><!-- End .product-details-action -->
+                            <div class="product-details-action">
+                                <div class="details-action-wrapper">
+                                    <button type="submit" class="btn-product btn-cart"><span>add to cart</span></button>
+                                    <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                                </div>
+                            </div>
+                        </form>
 
                         <div class="product-details-footer">
                             <div class="product-cat">

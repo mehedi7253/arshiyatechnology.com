@@ -60,90 +60,77 @@ class PageController extends Controller
     public function productDetails($slug)
     {
         $product = Product::where('slug', $slug)->first();
-        // $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->take(4)->get();
         return view('frontend.pages.product-details', compact('product'));
     }
 
-    public function addToCart(Request $request)
-    {
-        $productId = $request->product_id;
-        $quantity = $request->quantity;
-        $cart = session()->get('cart', []);
-
-        $product = Product::find($productId);
-        $cart[$productId] = [
-            "productId" => $product->id,
-            "name" => $product->product_name,
-            "quantity" => $quantity,
-            "price" => $product->discount_price ?? $product->price,
-            "image" => $product->image,
-            "url" => $product->slug,
-        ];
-
-        session()->put('cart', $cart);
-        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity']]);
-    }
-
-    public function increaseQuantity(Request $request)
-    {
-        $productId = $request->id;
-        $cart = session()->get('cart', []);
-        if (isset($cart[$productId])) {
-            $cart[$productId]['quantity']++;
-            $price = number_format($cart[$productId]['quantity'] * $cart[$productId]['price'],2);
-            session()->put('cart', $cart);
-        }
-
-        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity'], 'price' => $price]);
-    }
-
-    public function decreaseQuantity(Request $request)
-    {
-        $productId = $request->id;
-        $cart = session()->get('cart', []);
-
-        if (isset($cart[$productId]) && $cart[$productId]['quantity'] > 1) {
-            $cart[$productId]['quantity']--;
-            $price = number_format($cart[$productId]['quantity'] * $cart[$productId]['price'],2);
-            session()->put('cart', $cart);
-        }
-
-        return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity'], 'price' => $price]);
-    }
-
-    public function cartItem()
-    {
-        $cart = session()->get('cart', []);
-        // return $cart;
-        return view('frontend.pages.cart', compact('cart'));
-    }
-
-    public function removeItem($productId)
-    {
-        $cart = session()->get('cart', []);
-        if (isset($cart[$productId])) {
-            unset($cart[$productId]);
-            session()->put('cart', $cart);
-        }
-
-        $notification = [
-            'message' => 'Item Remove successfully',
-            'alert-type' =>'success',
-         ];
-         return redirect()->back()->with($notification);
-
-    }
-
-
-    public function products()
-    {
-        $products = Product::all();
-        return view('frontend.pages.products', compact('products'));
-    }
-
-    // public function details($slug)
+    // public function addToCart(Request $request)
     // {
-    //     $product = Product::where('slug', $slug)->first();
-    //     return view('frontend.pages.details', compact('product'));
+    //     $productId = $request->product_id;
+    //     $quantity = $request->quantity;
+    //     $cart = session()->get('cart', []);
+
+    //     $product = Product::find($productId);
+    //     $cart[$productId] = [
+    //         "productId" => $product->id,
+    //         "name" => $product->product_name,
+    //         "quantity" => $quantity,
+    //         "price" => $product->discount_price ?? $product->price,
+    //         "image" => $product->image,
+    //         "url" => $product->slug,
+    //     ];
+
+    //     session()->put('cart', $cart);
+    //     return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity']]);
     // }
+
+    // public function increaseQuantity(Request $request)
+    // {
+    //     $productId = $request->id;
+    //     $cart = session()->get('cart', []);
+    //     if (isset($cart[$productId])) {
+    //         $cart[$productId]['quantity']++;
+    //         $price = number_format($cart[$productId]['quantity'] * $cart[$productId]['price'],2);
+    //         session()->put('cart', $cart);
+    //     }
+
+    //     return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity'], 'price' => $price]);
+    // }
+
+    // public function decreaseQuantity(Request $request)
+    // {
+    //     $productId = $request->id;
+    //     $cart = session()->get('cart', []);
+
+    //     if (isset($cart[$productId]) && $cart[$productId]['quantity'] > 1) {
+    //         $cart[$productId]['quantity']--;
+    //         $price = number_format($cart[$productId]['quantity'] * $cart[$productId]['price'],2);
+    //         session()->put('cart', $cart);
+    //     }
+
+    //     return response()->json(['success' => true, 'quantity' => $cart[$productId]['quantity'], 'price' => $price]);
+    // }
+
+    // public function cartItem()
+    // {
+    //     $cart = session()->get('cart', []);
+    //     // return $cart;
+    //     return view('frontend.pages.cart', compact('cart'));
+    // }
+
+    // public function removeItem($productId)
+    // {
+    //     $cart = session()->get('cart', []);
+    //     if (isset($cart[$productId])) {
+    //         unset($cart[$productId]);
+    //         session()->put('cart', $cart);
+    //     }
+
+    //     $notification = [
+    //         'message' => 'Item Remove successfully',
+    //         'alert-type' =>'success',
+    //      ];
+    //      return redirect()->back()->with($notification);
+
+    // }
+
 }

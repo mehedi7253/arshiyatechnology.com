@@ -10063,8 +10063,8 @@ button:focus{
     margin-left:4rem
 }
 .details-action-wrapper .btn-product{
-    padding-top:0;
-    padding-bottom:0;
+    /* padding-top:0;
+    padding-bottom:0; */
     white-space:nowrap;
     align-self:stretch;
     line-height:1.4

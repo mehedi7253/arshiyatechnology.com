@@ -59,8 +59,15 @@
                                 </div>
 
                                 <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
+                                    <form action="{{route('page.add-to-cart')}}" method="POST">
+                                        @csrf
+                                        <input hidden name="product_id" value="{{ $product->id }}">
+                                        <input hidden name="quantity" value="1">
+                                        <button type="submit" class="btn-product btn-cart form-control col-12"><span>add to cart</span></button>
+                                    </form>
+                                    {{-- <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a> --}}
                                 </div>
+
                             </figure>
 
                             <div class="product-body">

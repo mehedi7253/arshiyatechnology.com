@@ -9,5 +9,5 @@
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/skins/skin-demo-14.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/demos/demo-14.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/plugins/nouislider/nouislider.css">
-
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
 @stack('style')

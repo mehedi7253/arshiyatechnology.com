@@ -25,11 +25,11 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid mb-5">
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="section-title">
-                <h2 class="section-title-heading mt-4">Our Clients</h2>
+                <h2 class="section-title-heading mt-3">Our Clients</h2>
             </div>
             <div class="owl-carousel owl-simple" id="clients" style="border: 0.3px solid #70ced9; border-radius: 3px; ">
                 @forelse ($clients as $client)
@@ -55,7 +55,7 @@
             </div>
             <div class="owl-carousel owl-simple" id="products" style="border: 0.3px solid #70ced9; border-radius: 3px; padding: 1rem">
                 @forelse ($products as $product)
-                <div class="product text-center" style="border: 1px solid #70ced9;">
+                <div class="product text-center">
                     <figure class="product-media">
                         <a href="product.html">
                             <img src="{{ $product->thumbnail }}" alt="{{ $product->name }}" class="product-image">
@@ -66,7 +66,12 @@
                         </div>
 
                         <div class="product-action">
-                            <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
+                            <form action="{{route('page.add-to-cart')}}" method="POST">
+                                @csrf
+                                <input hidden name="product_id" value="{{ $product->id }}">
+                                <input hidden name="quantity" value="1">
+                                <button type="submit" class="btn-product btn-cart form-control col-12"><span>add to cart</span></button>
+                            </form>
                         </div>
                     </figure>
 
