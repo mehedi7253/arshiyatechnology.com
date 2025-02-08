@@ -9723,7 +9723,8 @@ button:focus{
 }
 .product-main-image{
     position:relative;
-    margin-bottom:1rem
+    margin-bottom:1rem;
+    border: 1px solid #17a2b8;
 }
 .product-main-image img{
     max-width:none;
@@ -9773,7 +9774,8 @@ button:focus{
 }
 .product-gallery-item img{
     max-width:none;
-    width:100%
+    width:100%;
+    border: 1px solid #17a2b8;
 }
 .product-gallery-item:before,.product-gallery-item:after{
     content:'';
