@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Page\CartController;
 use App\Http\Controllers\Page\PageController;
@@ -62,3 +63,9 @@ require __DIR__ . '/admin.php';
 // //shop product
 // Route::get('shop', [ShopController::class,'index'])->name('shop.index');
 // Route::get('category-product/{slug}', [ShopController::class,'categoryProduct'])->name('category.product');
+
+
+Route::controller(FacebookController::class)->group(function(){
+    Route::get('auth/facebook', 'redirectToFacebook')->name('auth.facebook');
+    Route::get('auth/facebook/callback', 'handleFacebookCallback');
+});
