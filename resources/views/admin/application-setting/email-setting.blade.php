@@ -3,7 +3,12 @@
         <div class="card">
             <div class="card-header">
                 <h4><b>Mail Setting</b></h4>
-                <a href="{{ route('admin.email-setting.test-mail') }}" class="btn btn-sm btn-primary fs-5"><i class="bx fs-5 bx-mail-send"></i> Test Mail</a>
+                {{-- <a href="{{ route('admin.email-setting.test-mail') }}" class="btn btn-sm btn-primary fs-5"><i class="bx fs-5 bx-mail-send"></i> Test Mail</a> --}}
+
+                <form action="{{ route('admin.email-setting.test-mail') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-primary fs-5"><i class="bx fs-5 bx-mail-send"></i> Test Mail</button>
+                </form>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.email-setting.update') }}" method="POST">

@@ -167,11 +167,23 @@ class AdminController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function testMail()
+    public function testMail(Request $request)
     {
-        $user = auth()->user();
-        Mail::to('mehedihasanshanto368@gmail.com')->later(now()->addMinutes(1),new TestMail($user));
-        // Mail::to('mh271786@gmail.com')->send(new TestMail($user));
+        $email = EmailSetting::first();
+        $email->sent_time = now()->addMinutes(2);
+        $email->save();
+
+        $check = EmailSetting::where('sent_time', '<=', now())->first();
+
+        if($check)
+        {
+            $user = auth()->user();
+            // Mail::to('mehedihasanshanto368@gmail.com')->later(now()->addMinutes(1),new TestMail($user));
+            Mail::to('mh271786@gmail.com')->send(new TestMail($user));
+            $email->sent_time = '';
+            $email->save();
+            log('Email sent successfully'.$email->sent_time);
+        }
 
         $notification = [
             'message' => 'Test Mail Sent Successfully',
