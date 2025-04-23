@@ -170,7 +170,7 @@ class AdminController extends Controller
     public function testMail()
     {
         $user = auth()->user();
-        Mail::to('mh271786@gmail.com')->later(now()->addMinutes(1),new TestMail($user));
+        Mail::to('mehedihasanshanto368@gmail.com')->later(now()->addMinutes(1),new TestMail($user));
         // Mail::to('mh271786@gmail.com')->send(new TestMail($user));
 
         $notification = [

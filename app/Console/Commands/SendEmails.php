@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\TestMail;
+use App\Mail\TestMail;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class SendEmails extends Command
 {
@@ -28,7 +30,9 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        $user = Auth::user();
-        Log::info('Emails queued successfully');
+        $user = User::all();
+        Mail::to("mehedihasanshanto368@gmail.com")->send(new TestMail($user));
+        info('Email sent successfully to');
+        Log::info('Email sent successfully to:');
     }
 }
