@@ -35,5 +35,9 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_REDIRECT_URI'),
     ],
+    'mailchimp' => [
+        'key' => env('MAILCHIMP_APIKEY'),
+        'audience_id' => env('MAILCHIMP_AUDIENCE_ID'),
+    ],
 
 ];

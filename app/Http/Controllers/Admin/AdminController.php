@@ -10,7 +10,9 @@ use App\Models\MissionVission;
 use App\Models\Order;
 use App\Models\ServiceFacilitesValues;
 use App\Models\SiteSetting;
+use App\Services\MailchimpService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -167,23 +169,26 @@ class AdminController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function testMail(Request $request)
+    public function testMail(MailchimpService $mailchimp)
     {
-        $email = EmailSetting::first();
-        $email->sent_time = now()->addMinutes(2);
-        $email->save();
+        $user = Auth::user();
+        $mailchimp->subscribeUser($user->email, $user->name);
 
-        $check = EmailSetting::where('sent_time', '<=', now())->first();
+        // $email = EmailSetting::first();
+        // $email->sent_time = now()->addMinutes(2);
+        // $email->save();
 
-        if($check)
-        {
-            $user = auth()->user();
-            // Mail::to('mehedihasanshanto368@gmail.com')->later(now()->addMinutes(1),new TestMail($user));
-            Mail::to('mh271786@gmail.com')->send(new TestMail($user));
-            $email->sent_time = '';
-            $email->save();
-            log('Email sent successfully'.$email->sent_time);
-        }
+        // $check = EmailSetting::where('sent_time', '<=', now())->first();
+
+        // if($check)
+        // {
+        //     $user = auth()->user();
+        //     // Mail::to('mehedihasanshanto368@gmail.com')->later(now()->addMinutes(1),new TestMail($user));
+        //     Mail::to('mh271786@gmail.com')->send(new TestMail($user));
+        //     $email->sent_time = '';
+        //     $email->save();
+        //     log('Email sent successfully'.$email->sent_time);
+        // }
 
         $notification = [
             'message' => 'Test Mail Sent Successfully',
@@ -217,5 +222,11 @@ class AdminController extends Controller
             'alert-type' => 'success',
         ];
          return redirect()->back()->with($notification);
+    }
+
+    public function sendEmail(MailchimpService $mailchimp)
+    {
+        $user = Auth::user();
+        $mailchimp->subscribeUser($user->email, $user->name);
     }
 }
