@@ -69,7 +69,7 @@
             <br/>
         </p>
         <div class="social-icons social-icons-color">
-            <a href="https://github.com/mehedi7253/" target="_blank">Developed by Md.Mehedi Hasan</a>
+            <a href="https://mehedi-dev.xyz" target="_blank">Developed by Md.Mehedi Hasan</a>
             {{-- <span class="social-label">Social Media</span>
             <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
             <a href="#" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a> --}}
